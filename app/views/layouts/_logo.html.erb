@@ -1,0 +1,9 @@
+<div id="logo">
+	<% if user_signed_in? %>
+       <a href="<%="/view/#{current_user.guid}"%>" >
+	<%else%>
+       <a href="/" >
+    <%end%> 
+    	   <img src="/assets/youngvarsity-logo.png" border="0" alt="Youngvarsity logo" />
+       </a>
+</div>

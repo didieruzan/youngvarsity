@@ -1,0 +1,18 @@
+<div id="profile_expend"></div>
+<div id="profile_name"><strong><%= "#{current_user.firstname} #{current_user.lastname[0,1]}.".truncate(14) %> </strong></div>
+<div id="prof_img_sm_wrap">
+  <ul style="margin-right: 0; list-style: none;">
+    <li class="dropdown user_cell">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <div id="prof_img_sm"><%= image_tag(current_user.getAvatarThumb, :alt => "Photo") %></div>
+        <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to "Control panel".html_safe, "/controls" %></li>
+          <li><%= link_to "Profile".html_safe, "/profile" %></li>
+          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+        </ul>
+    </li>
+  </ul>
+</div>
+

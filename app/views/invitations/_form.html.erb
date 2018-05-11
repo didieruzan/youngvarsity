@@ -1,0 +1,43 @@
+<%= form_for(@invitation) do |f| %>
+  <% if @invitation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@invitation.errors.count, "error") %> prohibited this invitation from being saved:</h2>
+
+      <ul>
+      <% @invitation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<table cellpadding="0" cellspacing="5" width="700" style="float: left; width: 100%;">
+  <tr>
+      <td>
+        <strong>Sent to:</strong><br />
+        <%= f.text_field :recipient %>
+      </td>
+  </tr>
+  <tr>
+    <td align="left" width="100%" colspan="3">
+      <strong>Comment</strong><br />
+      <%= f.text_field :comments %>
+    </td>
+  </tr>
+
+  <% if !@invitation.token.blank? %>
+  <tr>
+    <td align="left" width="100%" colspan="3">
+      <strong>Invitation URL</strong><br />
+      <input type="text" readonly size="80" value="<%= "#{ENV["WEBSITE_URL"]}?invite=#{@invitation.token}" %>" />
+    </td>
+  </tr>
+  <% end %>
+
+
+</table>
+
+  <div class="actions right">
+    <%= f.submit :class=> "btnblue", :value=>"SAVE" %>
+  </div>
+<% end %>

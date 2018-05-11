@@ -1,0 +1,5 @@
+<div class="fileinput-button">
+    <%= form_for Photo.new, :remote => true, :html => { :multipart => true } do |f| %>
+       <%= f.file_field :image, :name => "photo_img[]", :multiple => false %>
+    <% end %>
+</div>

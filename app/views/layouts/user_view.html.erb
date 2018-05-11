@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+      var token = null;
+      <% if user_signed_in? %>
+        token = "<%=current_user.guid%>"
+      <% end %>
+    </script>
+  <title>YoungVarsity | Social playground for young athletes</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans|Crafty+Girls|Pacifico|Righteous|Lobster+Two|Maiden+Orange|Miltonian+Tattoo|Old+Standard+TT|Oswald:400,300|Ubuntu:400,300' rel='stylesheet' type='text/css'>
+
+  <%= csrf_meta_tags %>
+
+  <%
+    box_bg_color = 'transparent'
+
+    if !@person.box_bg_color.blank?
+      hex = @person.box_bg_color
+      col = hex.scan(/../).map {|color| color.to_i(16)}
+      box_bg_color = "rgba(#{col[0]}, #{col[1]}, #{col[2]}, 0.5)"
+    end
+    %>
+
+
+
+  <style type="text/css">
+    body {
+      <% if !@person.bgimg.blank? %>
+      background: none;
+      <%else%>
+            background: transparent url("/assets/grass_bg.jpg") repeat 0 0 transparent;
+      <% end %>
+      height: 100%;
+    }
+
+    html {
+        height: 100%;
+    }
+
+
+    /*#outer_main_user_wrap*/
+    #fanpage_wrapper
+    {
+      <% if !@person.bgimg.blank? %>
+            background-image: url("<%=userBgFull %>");
+            background-position: <%=userBgAlign%>;
+      <%else%>
+            background: transparent url('/assets/missing_psi_bg.png') center no-repeat;
+            background-size: auto;
+      <% end %>
+    }
+
+
+    #profileBoxWrapper
+    {
+      color: #<%=@person.box_text_col %>;
+      background-color: <%=box_bg_color%>;
+      <% if @person.box_pos == 'right'%>
+        right: 35px;
+        left: auto;
+      <%end%>
+    }
+
+
+    #profileBoxWrapper .moreBtn,
+    #profileBoxWrapper .moreBtn a:link,
+    #profileBoxWrapper .moreBtn a:visited,
+    #profileBoxWrapper .moreBtn a:hover
+    {
+       <% if !@person.box_bg_color.blank? %>
+        color: #<%=@person.box_bg_color %>;
+       <% end %>
+    }
+
+   #profileBoxWrapper .moreBtn
+    {
+      background-color: #<%=@person.box_text_col %>;
+    }
+
+
+    #profileBoxWrapper .nameRow
+    {
+      font-family: "Marcelle";
+      /*
+      font-family: 'Lobster', cursive;
+      font-family: 'Molle', cursive;
+      font-family: 'Open Sans', sans-serif;
+      font-family: 'Crafty Girls', cursive;
+      font-family: 'Pacifico', cursive;
+      font-family: 'Righteous', cursive;
+      font-family: 'Leckerli One', cursive;
+      font-family: 'Lobster Two', cursive;
+      font-family: 'Maiden Orange', cursive;
+      font-family: 'Miltonian Tattoo', cursive;
+      font-family: 'Old Standard TT', serif;
+      */
+      width: 100%;
+    }
+
+  #profileBoxWrapper .schoolInfoRow
+    {
+      font-family: 'Oswald', sans-serif;
+    }
+
+  #profileBoxWrapper .bioRow
+    {
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+    }
+
+    #member_logo
+    {
+      width: 195px;
+      height: 65px;
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      background: transparent url(/assets/youngvarsity_member_logo.png) repeat 0 0;
+    }
+
+    <% if (!person.nil? && !current_user.nil?) %>
+      <% if (person.id == current_user.id) %>
+        header #signup_profile {
+          margin-right: 35px;
+        }
+      <% end %>
+    <% end %>
+  </style>
+
+  <script type="text/javascript">
+
+    $(document).ready(function()
+    {
+    //   if (top.location == self.location) {
+    //   // we're in FB
+    //   $('header').show();
+    //   $('#member_logo').hide();
+    // } else {
+    //   $('header').hide();
+    //   $('#member_logo').show();
+
+    // }
+
+      $('#profileBoxWrapper .bioRow').css('width', ($('#profileBoxWrapper .nameRow').width()-50)+'px');
+        setTimeout( function() {
+        var mainDivHeight = $(window).height()-40;
+        $('#outer_main_user_wrap').css('height', mainDivHeight+'px');
+      }, 1000);
+
+      $("#wishlistPrevBtn").click(function() {
+        $("#wishlistPrevBtn").toggleClass('selected');
+        $("#wishlistPreviewBox").fadeToggle("slow", "linear");
+      });
+
+  });
+
+
+
+  </script>
+  <!--[if gte IE 9]>
+    <style type="text/css">
+      .gradient {
+         filter: none;
+      }
+    </style>
+  <![endif]-->
+  <%= render :partial => "analytics/mixpanel" %>
+  <script type="text/javascript">
+    $(document).ready(function()
+    {
+      var user_log_identity = "<%=user_log_identity%>";
+      mixpanel.identify(user_log_identity);
+      mixpanel.register({ distinct_id: user_log_identity });
+      mixpanel.name_tag(user_log_identity);
+    });
+  </script>
+</head>
+<body>
+  <div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    // init the FB JS SDK
+    FB.init({
+      appId      : '<%=ENV["FB_APP_ID"]%>', // App ID from the App Dashboard
+      channelUrl : '<%=ENV["ROOT_URL"] %>channel.html', // Channel File for x-domain communication
+      status     : true, // check the login status upon init?
+      cookie     : true, // set sessions cookies to allow your server to access the session?
+      xfbml      : true  // parse XFBML tags on this page?
+    });
+    FB.Canvas.setAutoGrow();
+  };
+
+  // Load the SDK's source Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+</script>
+  <div id="fanpage_wrapper">
+    <%= render :partial => "layouts/nav/tong_nav" if user_signed_in? %>
+    <header>
+        <div id="inner_header">
+            <%= render :partial => "layouts/logo" %>
+            <% if user_signed_in? %>
+                <%= render :partial => "layouts/nav/top_main_menu" %>
+                <div id="signup_profile">
+                  <%= render :partial => "layouts/nav/profile_image_small" %>
+                  <%= render :partial => "layouts/nav/top_right_dropmenu" %>
+                </div>
+            <% else %>
+                <div id="signup_profile">
+                    <%#= link_to "Sign up", new_user_registration_path %>
+                    <%#= link_to "Login", new_user_session_path %>
+                    <%#### FOR NOW UNTIL OUT OF INVITE ONLY= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+                </div>
+            <% end %>
+
+        </div>
+      </header>
+    <div id="outer_main_user_wrap">
+        <div id="main_user_wrap">
+          <% flash.each do |name, msg| %>
+            <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+              <a class="close" data-dismiss="alert">×</a>
+              <%= msg %>
+            </div>
+          <% end %>
+          <div id="inner_wrap" style="min-height: auto;">
+            <%= yield %>
+          </div>
+        </div>
+         <div class="alpha public_fanpage"><%= render :partial => "layouts/footer" %></div>
+    </div>
+    <!-- <div id="member_logo"></div> -->
+
+  </div>
+  <%= render :partial => "layouts/wait_anim" %>
+  <%= render :partial => "layouts/search_user_result" if user_signed_in? %>
+  <%= render :partial => "layouts/share_psi_dlg" if user_signed_in? %>
+</body>
+</html>

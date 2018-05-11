@@ -1,0 +1,35 @@
+<div class="middle_grid">
+	<%= render :partial => "profile_img", :object => @person %>
+	<% if @person.photos.any? %>
+   <% adPos =  rand(2...@person.photos.count) if @person.photos.count > 6 # then enough photos to display an ad %>
+		<% @photos.each_with_index do |p, counter|%>
+			<% if !p.medium.blank? %>
+				<div class="grid_item photo_item" id="gridphoto_<%=p.guid%>">
+					<div class="photo_wrap">
+						<%if p.user.id == current_user.id %>
+							<div class="rem_photo">
+								<%= link_to image_tag("blank.png", :alt=>"Remove"), "/photo/delete/#{p.guid}", remote: true %>
+							</div>
+						<%end%>
+						<img alt="" src="<%=p.medium%>"/>
+
+					</div>
+					<div class="grid_item_caption_row">
+            <div class="photo_desc" style="<%="display: none;" if p.description.blank? %>"><%=p.description%></div>
+						<div class="comment_ico ttip" title="Add a comment" style="margin-left: 10px;"></div>
+						<div class="timestamp">
+							 <%= time_ago_in_words(p.created_at) %> ago.
+						</div>
+					</div>
+          <%= render :partial => "comments", :locals => { :p => p } %>
+				</div>
+			<% end%>
+    <%= render :partial => "ads/video_ads", :locals => { :sports => @person.sport }  if !adPos.nil? && counter===adPos %>
+		<% end%>
+	<% end %>
+
+
+
+
+</div>
+<%= render :partial => "photo_dlg" %>

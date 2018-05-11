@@ -1,0 +1,237 @@
+#file_upload_wrap
+{
+	float: left;
+	width: 300px;
+}
+
+@charset "UTF-8";
+/*
+ * jQuery File Upload UI Plugin CSS 6.10
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2010, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+
+
+
+.fileinput-button {
+  overflow: hidden;
+  float: left;
+  width: 130px;
+  height: 91px;
+  cursor: pointer;
+}
+
+.fileinput-button:hover
+{
+	background-position: -210px 0;
+}
+
+.fileinput-button input {
+  height: 91px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transform: translate(-300px, 0) scale(4);
+  font-size: 23px;
+  direction: ltr;
+  cursor: pointer;
+}
+.fileupload-buttonbar .btn,
+.fileupload-buttonbar .toggle {
+  margin-bottom: 5px;
+}
+
+.progress {
+  width: 220px;
+  margin: 25px;
+  float: left;
+}
+
+.files .progress {
+  width: 220px;
+}
+
+.progress-animated .bar {
+  background: url(/assets/progressbar.gif) !important;
+  filter: none;
+}
+
+.bar {
+  height: 18px;
+}
+
+.fileupload-loading {
+  position: absolute;
+  left: 50%;
+  width: 128px;
+  height: 128px;
+  background: url(/assets/loading.gif) center no-repeat;
+  display: none;
+}
+.fileupload-processing .fileupload-loading {
+  display: block;
+}
+
+/* Fix for IE 6: */
+* html .fileinput-button {
+  line-height: 24px;
+  margin: 1px -3px 0 0;
+}
+
+/* Fix for IE 7: */
+* + html .fileinput-button {
+  padding: 2px 15px;
+  margin: 1px 0 0 0;
+}
+
+@media (max-width: 767px) {
+  .files .btn span {
+    display: none;
+  }
+  .files .preview * {
+    width: 40px;
+  }
+  .files .name * {
+    width: 80px;
+    display: inline-block;
+    word-wrap: break-word;
+  }
+  .files .progress {
+    width: 20px;
+  }
+  .files .delete {
+    width: 60px;
+  }
+}
+
+#photo_src_selection
+{
+  width: 100%;
+  min-height: 180px;
+  background: white;
+  float: left;
+  cursor: pointer;
+  background: white;
+}
+
+#photo_src_selection > DIV:hover
+{
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+#mini_photo_src_selection {
+    background-color: #3D3C39;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 5px black;
+    color: #BBBBBB;
+    height: 70px;
+    opacity: 0.95;
+    position: absolute;
+    right: 10px;
+    top: 27px;
+    width: 190px;
+    cursor: move;
+}
+
+.photo_import_wrap {
+  width: 50px;
+  height: 50px;
+  float: left;
+  text-align: center;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #bbbbbb;
+}
+
+.icon_picasa, .icon_facebook, .icon_upload, .icon_googleplus {
+
+}
+
+#photo_import_picasa, #photo_import_facebook, #photo_import_upload, #photo_import_googleplus
+{
+  width: 190px;
+  height: 150px;
+  float: left;
+  margin-top: 30px;
+  text-align: center;
+}
+
+#photo_import_picasa
+{
+  background: transparent url(/assets/picasa64.png) center center no-repeat;
+}
+
+#photo_import_facebook
+{
+  background: transparent url(/assets/fb64.png) center center no-repeat;
+}
+
+#photo_import_upload
+{
+  background: transparent url(/assets/upload64.png) center center no-repeat;
+}
+
+#photo_import_googleplus
+{
+  background: transparent url(/assets/gplus-64.png) center center no-repeat;
+}
+
+#googleplus_photo_src, #picasa_photo_src
+{
+    height: 32px;
+    margin: 10px 0;
+    padding: 3px 10px;
+    width: 725px;
+}
+
+#fetched_photo_selection
+{
+  width: 940px;
+  max-height: 675px;
+}
+
+img.photo_cell
+{
+  min-width: 288px;
+}
+
+#fetched_photo_selection #wrapper
+{
+  float: left;
+  width: 100%;
+  height: 675px;
+}
+
+.photo_cell_wrap
+{
+  float: left;
+  margin: 7px 7px 0 0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.photo_cell_wrap .select_flag
+{
+  width: 55px;
+  height: 55px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent url(/assets/photo-checked-icon.png) 0 0 no-repeat;
+  display: none;
+}
+
+.photo_cell_wrap.selected .select_flag
+{
+  display: block;
+}
+

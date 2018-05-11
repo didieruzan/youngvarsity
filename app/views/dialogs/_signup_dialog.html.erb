@@ -1,0 +1,93 @@
+<style type="text/css">
+#signup_dialog {
+  position: relative;
+}
+
+#signup_dialog .p_text {
+  position: absolute;
+  top: 250px;
+  left: 375px;
+}
+
+#signup_dialog  #fb_connect_btn {
+  position: absolute;
+  top: 295px;
+  left: 410px;
+}
+
+#signup_dialog .email_form INPUT {
+  width: 290px;
+}
+
+#signup_dialog .email_form INPUT, #signup_dialog .email_form #invite_submit_btn
+{
+  margin-left: 20px;
+}
+</style>
+<script type="text/javascript">
+
+ $(document).ready(function()
+    {
+      $('#invite_submit_btn').click(function() {
+           $("#invite_submit_btn").hide();
+          $(".email_error").hide();
+          var hasError = false;
+          var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+
+          var emailaddressVal = $("#invite_by_email").val();
+          if(emailaddressVal == '') {
+              $("#invite_submit_btn").after('<span class="email_error">Invalid email!</span>');
+              hasError = true;
+          }
+
+          else if(!emailReg.test(emailaddressVal)) {
+              $("#invite_submit_btn").after('<span class="email_error">Invalid email!</span>');
+              hasError = true;
+          }
+
+          if(hasError == true) { $("#invite_submit_btn").show(); return false; }
+
+          $.ajax({
+            url: "/save_invite_request",
+            type: 'POST',
+            async : false,
+            data: {lead_email: emailaddressVal},
+            success: function(response) {
+              $("#signup_dialog .email_form #invite_by_email").val("");
+
+              if (response.status == 'double') {
+                $.gritter.add({
+                  title: 'Invitation requested!',
+                  text: 'We\'ve already received and invitation request from this email address...<br />See you soon on YoungVarsity'
+                });
+              } else {
+                $.gritter.add({
+                  title: 'Invitation requested successfully',
+                  text: 'Thank you for your Invite request!<br />We\'ll do our best to send you one ASAP.<br />See you soon on YoungVarsity'
+                });
+              }
+              $("#invite_submit_btn").fadeIn();
+             // $('#signup_dialog').dialog('close');
+            }
+          });
+      });
+    });
+</script>
+<div id="signup_dialog">
+    <div class="p_text">
+      <span><!-- You will need a valid Facebook account to connect -->
+        Social playground for young athletes
+      </span>
+      <br />
+    </div>
+
+    <div id="fb_connect_btn" style="float: right; clear: both;">
+      <% if ENV["INVITE_ONLY"] != "TRUE" %>
+      <div class='btn blue-fb'  style="margin: 20px auto;">
+        <%= link_to "Login - Register", user_omniauth_authorize_path(:facebook) %>
+      </div>
+      <% else %>
+        <%= link_to "Connect", user_omniauth_authorize_path(:facebook) %>
+      <% end %>
+    </div>
+</div>

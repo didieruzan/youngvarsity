@@ -1,0 +1,16 @@
+<div id="profile_img_upload_dlg">
+	<div id="profile_img_upload_wrap">
+		Select an image:
+		<%= form_for ( @user ), :remote => true, :html => { :multipart => true, :class => "edit_user_avatar" } do |f| %>
+    <%#= form_for ( @user ), :html => { :multipart => true } do |f| %>
+	    	<%#= f.file_field (:cover_image) %>
+        <%= f.file_field (:profileimg) %>
+	    	<%#= image_tag current_user.cover_image.thumb('100x100').url if current_user.cover_image_uid %>
+	    	<!-- <div id="edit_profile_img_submit">Upload</div> -->
+		<% end %>
+		<p></p>
+	</div>
+</div>
+<div id="edit_profile_img">
+  <div class="btn btn-success"><i class="icon-upload  icon-white"></i> Edit profile picture</div>
+</div>

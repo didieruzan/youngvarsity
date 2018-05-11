@@ -1,0 +1,106 @@
+===============================================================================================
+Football:
+  For offense:
+      [
+      { :desc => "Total number of attempted passes", field => "pass_attempts", :label => "Attempts", :short => "Att", :section => "Passing" },
+      { :desc => "Total number of complete passes.", field => "pass_completions", :label => "Pass Completions", :short => "Cmp", :section => "Passing" },
+      { :desc => "Total number of completed passing yards accumulated during the game", field => "passing_yards", :label => "Passing yards", :short => "Yds", :section => "Passing" },
+      { :desc => "Total number of completed touchdown passes thrown by the quarterback.", field => "pass_touchdowns", :label => "Touchdown Passes", :short => "TD", :section => "Passing" },
+      { :desc => "Pass interceptions", field => "pass_interceptions", :label => "interceptions", :short => "INT", :section => "Passing" },
+      { :desc => "Passer rating", field => "passer_rating", :label => "Passer rating", :short => "PR", :section => "Passing" },
+      { :desc => "Attempts carries", field => "attempts_carries", :label => "Attempts carries", :short => "RC", :section => "Rushing" },
+      { :desc => "Rushing Yards", field => "rush_yards", :label => "Yards", :short => "Yds", :section => "Rushing" },
+      { :desc => "Yards per attempt", field => "rush_yards_att", :label => "Yards per attempt", :short => "Yatt", :section => "Rushing" },
+      { :desc => "Long(est gain)", field => "rush_longest", :label => "Long(est gain)", :short => "Lng", :section => "Rushing" },
+      { :desc => "Touchdowns", field => "rush_td", :label => "Touchdowns", :short => "TD", :section => "Rushing" },
+	    { :desc => "Received",                 field => "received", :label => "Received", :short => "Rec", :section => "Receiving" },
+	    { :desc => "Yards",                    field => "receiv_yards", :label => "Yards", :short => "Yds", :section => "Rushing" },
+	    { :desc => "Average",                  field => "receiv_avg", :label => "Average", :short => "Avg", :section => "Rushing" },
+	    { :desc => "Long",                     field => "receiv_long", :label => "Long", :short => "Lng", :section => "Rushing" },
+	    { :desc => "Touchdowns",               field => "receiv_touchdowns", :label => "Touchdowns", :short => "TD", :section => "Rushing" },
+
+	    { :desc => "Extra points made",        field => "kick_xpm", :label => "Extra points made", :short => "XPM", :section => "Kicking" },
+	    { :desc => "Extra points attempts",    field => "kick_xpa", :label => "Extra points attempts", :short => "XPA", :section => "Kicking" },
+	    { :desc => "Extra points percentage",  field => "kick_xpp", :label => "Extra points %", :short => "XP%", :section => "Kicking" },
+	    { :desc => "Field goal made",          field => "kick_fgm", :label => "Field goal made", :short => "FGM", :section => "Kicking" },
+	    { :desc => "Field goal attempts",      field => "kick_fga", :label => "Field goal attempts", :short => "FGA", :section => "Kicking" },
+	    { :desc => "Field goal percentage",    field => "kick_fgp", :label => "Field goal %", :short => "FG%", :section => "Kicking" },
+	    { :desc => "Longest",                  field => "kick_longest", :label => "Longest", :short => "Lng", :section => "Kicking" },
+	    { :desc => "Overall points",           field => "kick_op", :label => "Overall points", :short => "OP", :section => "Kicking" },
+
+  For defense:
+
+    { :desc => "Tackles solo",              field => "defense_tackles_solo", :label => "Tackles solo", :short => "SOLO", :section => "Defense" },
+    { :desc => "Tackles assist",            field => "defense_tackles_assist", :label => "Tackles assist", :short => "Ast", :section => "Defense" },
+    { :desc => "Sacks",                     field => "defense_sacks", :label => "sacks", :short => "SAK", :section => "Defense" },
+    { :desc => "Fumbles",                   field => "defense_fumbles", :label => "Fumbles", :short => "Fumb", :section => "Defense" },
+    { :desc => "Interceptions",             field => "defense_interceptions", :label => "Interceptions", :short => "INT", :section => "Defense" },
+    { :desc => "Yards/interception",        field => "defense_yards", :label => "Yards/interception", :short => "Yds", :section => "Defense" },
+    { :desc => "Longest (int)",             field => "defense_longest", :label => "Longest (int)", :short => "Lng", :section => "Defense" },
+    { :desc => "Touchdowns (from int)",     field => "defense_td", :label => "Touchdowns (from int)", :short => "TD", :section => "Defense" }
+    ]
+
+===============================================================================================
+Soccer:
+
+def self.labels
+    {
+      :games_played =>    { :desc => "Games played", :label => "Games played", :short => "GP", :section => "General" },
+      :Goals =>    { :desc => "Goals", :label => "Goals", :short => "Goals", :section => "General" },
+      :assists =>    { :desc => "Assists", :label => "Assists", :short => "Assists", :section => "General" },
+      :shots =>    { :desc => "Shots", :label => "Shots", :short => "Shots", :section => "General" },
+      :shot_avg =>    { :desc => "Shot percentage", :label => "Shot %", :short => "Shot %", :section => "General" },
+      :saves_on_goals =>    { :desc => "Saves on goals", :label => "Saves on goals", :short => "Saves", :section => "Defense" },
+    }
+
+
+
+===============================================================================================
+Basketball:
+
+def self.labels
+    {
+      :games_played =>    { :desc => "Games played", :label => "Games played", :short => "GP", :section => "General" },
+      :point_game =>  { :desc => "Point per game", :label => "Point per game", :short => "Points", :section => "General" },
+      :assist_game =>    { :desc => "Assist per game", :label => "Assist per game", :short => "Assits", :section => "General" },
+      :rebounds_game =>    { :desc => "Rebounds per game", :label => "Rebounds per game", :short => "Rebounds", :section => "General" },
+      :field_goal =>    { :desc => "Field goal percentage", :label => "Field goal %", :short => "Field goal %", :section => "General" },
+      :3pt_percentage =>    { :desc => "3pt. percentage", :label => "3pt. %", :short => "3pt. %", :section => "General" },
+      :ft_percentage =>    { :desc => "Free Throws Average", :label => "Free Throws %", :short => "FTA", :section => "General" },
+      :steals_game =>    { :desc => "Steals per game", :label => "Steals per game", :short => "Steals", :section => "General" },
+      :blocks_game =>    { :desc => "blocks per game", :label => "Blocks per game", :short => "Blocks", :section => "General" }
+    }
+
+
+===============================================================================================
+Baseball:
+
+  def self.labels
+    {
+      :games_played => { :desc => "Games played", :label => "Games played", :short => "G", :section => "General" },
+      :batting_average => { :desc => "Batting average", :label => "Batting average", :short => "BA", :section => "Batting" },
+      :on_base_percentage => { :desc => "On base percentage", :label => "On base percentage", :short => "OBA", :section => "Batting" },
+      :run_batted_in => { :desc => "Run Batted In", :label => "Run Batted In", :short => "RBI", :section => "Batting" },
+      :hits => { :desc => "Hits", :label => "Hits", :short => "HIT", :section => "Batting" },
+      :runs => { :desc => "Runs", :label => "Runs", :short => "RUN", :section => "Batting" },
+      :plate_appearances => { :desc => "Plate Appearances", :label => "Plate Appearances", :short => "PA", :section => "Batting" },
+      :at_bat => { :desc => "at bat", :label => "at bat", :short => "AB", :section => "Batting" },
+      :home_runs => { :desc => "Home runs", :label => "Home runs", :short => "HR", :section => "Batting" },
+      :putout => { :desc => "putOut", :label => "putOut", :short => "PO", :section => "Fielding" },
+      :assists => { :desc => "Assists", :label => "Assists", :short => "A", :section => "Fielding" },
+      :fielding_errors => { :desc => "Errors", :label => "Errors", :short => "E", :section => "Fielding" },
+      :total_chances => { :desc => "Total Chances", :label => "Total Chances", :short => "TC", :section => "Fielding" },
+      :fielding_percentage => { :desc => "Fielding percentage", :label => "Fielding percentage", :short => "FP", :section => "Fielding" },
+      :stolen_bases => { :desc => "Stolen bases", :label => "Stolen bases", :short => "SB", :section => "Base running" },
+      :caught_stealing => { :desc => "Caught stealing", :label => "Caught stealing", :short => "CS", :section => "Base running" },
+      :earned_run_average => { :desc => "Earned run average", :label => "Earned run average", :short => "ERA", :section => "Pitching" },
+      :win => { :desc => "Win", :label => "Win", :short => "W", :section => "Pitching" },
+      :loss => { :desc => "Loss", :label => "Loss", :short => "L", :section => "Pitching" },
+      :hits_against => { :desc => "Hits against", :label => "Hits against", :short => "H", :section => "Pitching" },
+      :runs_against => { :desc => "Runs against", :label => "Runs against", :short => "R", :section => "Pitching" },
+      :earned_runs => { :desc => "Earned runs", :label => "Earned runs", :short => "ER", :section => "Pitching" },
+      :inning_pitched => { :desc => "Inning pitched", :label => "Inning pitched", :short => "IP", :section => "Pitching" },
+      :pitching_save => { :desc => "Save", :label => "Save", :short => "SV", :section => "Pitching" },
+      :strikeout => { :desc => "Strikeout", :label => "Strikeout", :short => "K", :section => "Pitching" }
+    }
+end

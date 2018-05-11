@@ -1,0 +1,44 @@
+<%
+# case params[:prange]
+#       when 'less20'
+#         @products = if category.nil? then Product.price_less_than(21)
+#                     else category.products.price_less_than(21) end
+#       when '20-50'
+#         @products = if category.nil? then Product.price_between(19, 51)
+#                     else category.products.price_between(19, 51) end
+#       when '50-100'
+#         @products = if category.nil? then Product.price_between(49, 101)
+#                     else category.products.price_between(49, 101) end
+#       when '100above'
+#         @products = if category.nil? then Product.price_more_than(99)
+#                     else category.products.price_more_than(99) end
+#       else
+#         @products = if category.nil? then Product.where(is_active:true)
+#                     else category.products.where(is_active:true) end
+#       end
+
+
+%>
+<div id="filter_bar_wrap">
+  <div class="filter_cells">
+    <div class="filter_cell_wrap <%='selected' if (params[:prange].nil? || params[:prange]=='all')  %>">
+      <div class="filter_cell_text"><%=link_to "All", prodsgrid_path(:prange => "all", :category => params[:category]) %></div>
+    </div>
+
+    <div class="filter_cell_wrap <%='selected' if (!params[:prange].nil? && params[:prange]=='less20')  %>">
+      <div class="filter_cell_text"><%=link_to "$20 or less", prodsgrid_path(:prange => "less20", :category => params[:category]) %></div>
+    </div>
+
+    <div class="filter_cell_wrap <%='selected' if (!params[:prange].nil? && params[:prange]=='20-50')  %>">
+      <div class="filter_cell_text"><%=link_to "$20 to $50", prodsgrid_path(:prange => "20-50", :category => params[:category]) %></div>
+    </div>
+
+    <div class="filter_cell_wrap <%='selected' if (!params[:prange].nil? && params[:prange]=='50-100')  %>">
+      <div class="filter_cell_text"><%=link_to "$50 to $100", prodsgrid_path(:prange => "50-100", :category => params[:category]) %></div>
+    </div>
+
+    <div class="filter_cell_wrap <%='selected' if (!params[:prange].nil? && params[:prange]=='100above')  %>">
+      <div class="filter_cell_text"><%=link_to "Above $100", prodsgrid_path(:prange => "100above", :category => params[:category]) %></div>
+    </div>
+  </div>
+</div>

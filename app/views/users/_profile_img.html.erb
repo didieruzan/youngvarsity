@@ -1,0 +1,30 @@
+<!-- <div id="profile_img_wrap" class="corner-stamp grid_item"> -->
+<div id="profile_img_wrap" class="grid_item" >
+	<div id="profile_img_frame">
+		<div id="profile_img_top">
+		</div>
+		<div id="profile_img_body">
+			<%= image_tag(@person.getAvatar) %>
+		</div>
+		<div id="profile_img_caption">
+			<div id="profile_img_caption_text">
+				<%=@person.firstname.truncate(13)%>
+			</div>
+      <% if user_signed_in? && @person.id != current_user.id %>
+        <div class="moreBtn" id="connectUser">
+          <% if !!current_user.is_friend?(@person.id) %>
+            <span class="onHoverDisplay">&#xf05e;</span>
+            <span class="offHoverDisplay">&#xf05d;</span>
+            <%=link_to "Teammate", "/unfriend/#{@person.guid}" %>
+          <%else%>
+            <span class="onHoverDisplay">&#xf055;</span>
+            <span class="offHoverDisplay">&#xf055;</span>
+            <%=link_to "Add Teammate", "/teammate/#{@person.guid}"%>
+          <%end%>
+        </div>
+      <% end %>
+		</div>
+	</div>
+
+</div>
+

@@ -1,0 +1,569 @@
+<% if current_user.qrcode.blank?
+  qrcode_link_med = qrcode_link = "http://chart.googleapis.com/chart?chs=80x80&chld=|2&cht=qr&chl=http://youngvarsity.com/me/#{current_user.nickname.gsub!(/\./, '-')}"
+else
+  qrcode_link = current_user.qrcode_url
+  qrcode_link_med = current_user.qrcode_url(:small)
+end %>
+
+<style type="text/css">
+#inner_wrap .left_pane {
+  float: left;
+  width: 380px;
+  margin-left: 20px;
+}
+
+#inner_wrap .right_pane {
+  float: right;
+  width: 535px;
+  margin-top: -35px;
+}
+
+.pane_wrap {
+  float: left;
+  width: 100%;
+}
+
+.preview_wrap
+{
+ float: left;
+ width: 100%;
+}
+
+#card_preview, #back_card_preview {
+/*  transform:rotate(-3deg);
+  -ms-transform:rotate(-3deg);
+  -webkit-transform:rotate(-3deg); */
+  position: relative;
+   margin: 15px auto;
+}
+
+#card_preview.card_portrait, #back_card_preview {
+  width: 290px;
+  height: 400px;
+  background: transparent url('/assets/card_bg_medium_portrait.jpg') 0 0 no-repeat;
+}
+
+#card_preview.card_landscape{
+  width: 400px;
+  height: 290px;
+  background: transparent url('/assets/card_bg_medium_landscape.jpg') 0 0 no-repeat;
+}
+
+#card_photo, #card_frame {
+  width: 208px;
+  height: 325px;
+  float: left;
+  margin: 16px 0 0 36px;
+}
+
+.card_landscape #card_photo {
+  width: 322px;
+  height: 205px;
+  float: left;
+  margin: 32px 0 0 32px;
+}
+
+#card_photo, #card_frame  {
+  border: 4px solid #563513;
+  border: 4px solid rgba(86,59,19,0.7); -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+#card_preview .y_logo, #back_card_preview .y_logo {
+  width: 36px;
+  height: 43px;
+  position: absolute;
+  top: 5px;
+  left: 23px;
+  background: transparent url('/assets/card_medium_y_logo.png') 0 0 no-repeat;
+}
+
+.card_landscape#card_preview .y_logo {
+  top: 21px;
+  left: 21px;
+}
+
+.fileinput-button {
+  overflow: hidden;
+  position: relative;
+  float: left;
+  cursor: pointer;
+  margin: 0 0 10px;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transform: translate(-300px, 0) scale(4);
+  font-size: 23px;
+  direction: ltr;
+  cursor: pointer;
+}
+
+.smalltext
+{
+  font-size: 11px;
+  color: #999999;
+}
+
+#collectible_latest_stats option {
+  padding: 7px 0;
+}
+
+#card-nametag-wrap {
+
+  background: white;
+  border: 4px solid #563513;
+  border: 4px solid rgba(86,59,19,0.7); -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+  color: #222121;
+  padding: 3px;
+  bottom: 70px;
+  float: left;
+  left: 29px;
+  position: absolute;
+  width: 217px;
+}
+
+.card_landscape #card-nametag-wrap {
+  left: 82px;
+  bottom: 36px;
+}
+
+#card-nametag-wrap .card-nametag-text {
+    font-family: "Marcelle";
+    font-size: 26px;
+    line-height: 47px;
+    width: 166px;
+    text-align: center;
+    float: right;
+}
+
+.card-nametag-qrcode, .card-nametag-qrcode90 {
+  width: 65px;
+  height: 65px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: white;
+  position: absolute;
+  left: -8px;
+  bottom: -11px;
+  border: 4px solid #563513;
+  border: 4px solid rgba(86,59,19,0.7);
+}
+
+.card-nametag-qrcode90 {
+    bottom: 43px;
+    height: 82px;
+    left: 30px;
+    width: 82px;}
+
+.edit_collectible .form-actions{
+    margin-right: 40px;
+    margin-top: 40px;
+}
+
+.dropdown-menu i {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.input-prepend .add-on.prepend-med {
+    min-width: 100px;
+}
+
+#flip_card {
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.preview_wrap.preview_backside #card_preview {
+  display: none;
+}
+
+#back_card_preview {
+  display: none;
+}
+
+.preview_wrap.preview_backside #back_card_preview {
+  display: block;
+}
+
+#jersey_number {
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  background: transparent url('/assets/jersey_number_bg.png') center no-repeat;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 100px;
+  font-size: 24px;
+  color: #ECD6A4;
+  bottom: 48px;
+  right: 62px;
+  position: absolute;
+}
+
+#card-preview-followme {
+  width: 135px;
+  height: 23px;
+  background: transparent url('/assets/card-preview-follow-me.jpg') center no-repeat;
+  position: absolute;
+  top: 3px;
+  left: 80px;
+
+}
+
+.card-preview-head-text > div {
+  position: absolute;
+  left: 55px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #66512C;
+}
+
+#card-preview-teamname {
+  top: 35px;
+}
+
+#card-preview-field_pos {
+  top: 60px;
+  font-style: italic;
+}
+
+#card-preview-weight-height {
+  top: 85px;
+}
+
+#card-preview-weight, #card-preview-height  {
+  float: left;
+  font-size: 14px;
+  font-weight: normal;
+  color: #66512C;
+  font-style: italic;
+  margin-right: 5px;
+
+}
+
+#card-preview-url {
+  top: 244px;
+  font-size: 10px;
+  font-weight: normal;
+  color: #66512C;
+  left: 43px;
+  width: 212px;
+}
+
+#card-preview-url a, #card-preview-url a:visited {
+  color: #66512C;
+}
+
+#stat_table {
+  top: 115px;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+#stat_table table {
+  margin-top: 5px;
+  float: left;
+  width: 175px;
+}
+
+#back_card_preview #stat_table .sportIcon {
+  font-size: 28px;
+  float: left;
+  margin-right: 30px;
+}
+
+</style>
+
+
+
+  <%= form_for(@collectible,:html => {:class => 'edit_collectible edit_form' })  do |f| %>
+  <div class="form-actions">
+      <%= f.submit 'Save', :class => 'btn  btn-danger btn-large pull-right' %>
+      <%= link_to 'Cancel', collectibles_path, :class => 'btn btn-large pull-right', :style => "margin: 0 15px;"  %>
+
+  </div>
+  <div class="pane_wrap">
+    <div class="left_pane">
+      <div style="float: left; width: 100%;">
+        <div id="flip_card"><i class="icon-refresh icon-2x"></i><br />Flip side</div>
+      </div>
+      <!-- card preview start -->
+      <div class="preview_wrap">
+        <div id="card_preview" class='<%=(!@collectible.orientation.nil? && @collectible.orientation == 'LANDSCAPE')? "card_landscape" : "card_portrait" %>'>
+          <div id="card_photo" style='<%="background-image: url(#{@collectible.srcphoto_url(:medium)});" if !@collectible.srcphoto.blank? %>'>
+
+          </div>
+          <div class="y_logo"></div>
+          <div id="card-nametag-wrap">
+            <div class="card-nametag-qrcode" style='background-image: url("<%=qrcode_link%>")'>
+            </div>
+            <div class="card-nametag-text">
+              <%= "#{current_user.firstname} #{current_user.lastname[0,1]}.".truncate(14) %></div>
+          </div>
+        </div>
+
+
+        <div id="back_card_preview">
+           <div id="card_frame" >
+              <div class="card-preview-head-text">
+                <div id="card-preview-teamname"><%=@collectible.team_name%></div>
+                <div id="card-preview-field_pos"><%=@collectible.field_pos%></div>
+                <div id="card-preview-weight-height">
+
+                    <div id="card-preview-weight">
+                      <% if !@collectible.weight.blank? %>
+                        wt: <%=@collectible.weight%> Lbs /
+                      <% end %>
+                    </div>
+
+
+                    <div id="card-preview-height">
+                      <% if !@collectible.height_ft.blank? && !@collectible.height_in.blank?  %>
+                      ht: <%=@collectible.height_ft%>' <%=@collectible.height_in%>''
+                      <% end %>
+                    </div>
+                </div>
+                <div id="stat_table">
+                  <% if !@collectible.latest_stats.blank? && @collectible.latest_stats != "0"
+                      stats = getSpecificStats @collectible.latest_stats %>
+
+                     <div class="sportIcon" data-sporticon="&#x<%=stats[:icon]%>;"></div>
+                     <h3>MY STATS</h3>
+                     <table>
+                      <% c = 0 %>
+                      <% stats[:labels].each do |k, lbl| %>
+
+                          <% if !stats[:data].nil? && !stats[:data][k].blank? %>
+                            <% c=c+1
+                               break if c > 7;
+
+                            %>
+                            <tr><td><%=lbl[:label]%></td><td><%=stats[:data][k]%> </td></tr>
+                          <% end %>
+
+                      <% end %>
+                      <%="<tr><td align=\"center\">No available stats</td></tr>".html_safe if c < 1 %>
+                     </table>
+
+                  <% end %>
+
+
+                </div>
+
+
+                <div id="card-preview-url"><%=image_tag "icon-youngvarsity.png" %>&nbsp; <a href="http://youngvarsity.com/me/<%=current_user.nickname.gsub(/\./, '-')%>" target="_blank" >
+                  youngvarsity.com/me/<%=current_user.nickname.gsub(/\./, '-')%>
+                </a></div>
+              </div>
+              <div id="jersey_number">
+                <%=@collectible.jersey_num%>
+              </div>
+
+           </div>
+          <div class="y_logo"></div>
+          <div id="card-preview-followme"></div>
+          <div class="card-nametag-qrcode90" style='background-image: url("<%=qrcode_link_med%>")'>
+          </div>
+
+
+        </div>
+
+
+      </div>
+      <!-- card preview end -->
+    </div>
+    <div class="right_pane" style="width: 500px;">
+
+      <div class="progress progress-striped active" style="margin-left: 0; margin-top: 0; width: 320px; visibility: hidden;">
+        <div class="bar bar-danger"></div>
+      </div>
+      <div class="control-group pull-left" style="width: 100%;">
+        <div class="controls">
+          <div class="btn btn-info display_crop_btn pull-left" style="margin-right: 5px;">
+            <i class="icon-resize-full icon-white"></i> Align/Crop
+          </div>
+
+
+          <div class="btn-group">
+              <div class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+              <i class="icon-picture"></i> New photo
+              <span class="caret"></span>
+            </div>
+            <ul class="dropdown-menu">
+              <li class="FBphotoSelect"><a href="#"><i class="icon-facebook-sign"></i> From Facebook</a></li>
+              <li class="divider"></li>
+              <li class="fileinput-button"><a href="#"><i class="icon-upload-alt"></i> From Upload</a><%= f.file_field :srcphoto %></li>
+            </ul>
+          </div>
+
+          <%= f.hidden_field :user_id %>
+          <input type="hidden" id="cid" name="cid" value="<%=@collectible.id %>" />
+          <%= f.hidden_field :remote_srcphoto_url, class: "remote_image_url_field" %>
+          <input type="hidden" id="reload" name="reload" value="false" />
+        </div>
+      </div>
+
+
+      <div class="panel panel-warning pull-left">
+        <div class="panel-heading"><h3>Data displayed on the back of the card</h3></div>
+
+          <div class="control-group">
+            <div class="controls input-append input-prepend"><span class="add-on prepend-med">Weight</span>
+
+               <%= f.text_field :weight, :style => "width: 173px; text-align: right" %>
+               <span class="add-on">Lbs</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="controls input-append input-prepend"><span class="add-on prepend-med">Height</span>
+
+               <%= f.select(:height_ft, options_for_select((3..6),@collectible.height_ft), {:prompt => "-"},  {:style => "width: 84px; text-align: right;"} ) %>
+
+               <span class="add-on">Ft.</span>
+               <%= f.select(:height_in, options_for_select((0..9),@collectible.height_in), {:prompt => "-"},  {:style => "width: 84px; text-align: right;"} ) %>
+               <span class="add-on">In.</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="controls input-prepend"><span class="add-on prepend-med">Team name</span>
+              <%= f.text_field :team_name %>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="controls input-prepend"><span class="add-on prepend-med">Field position</span>
+              <%= f.text_field :field_pos %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="controls input-prepend"><span class="add-on prepend-med">Jersey number</span>
+               <%= f.number_field :jersey_num %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="controls input-prepend"><span class="add-on prepend-med">Stats to display</span>
+              <select name="collectible[latest_stats]" id="collectible_latest_stats">
+                <option value="0"> -- none selected -- </option>
+                  <% if !statList.empty? %>
+                  <% statList.each do |stat, lastUpdate| %>
+                    <option value="<%= "#{stat}-#{lastUpdate[:stat_id]}"%>" <%="selected" if (!@collectible.latest_stats.blank? && "#{stat}-#{lastUpdate[:stat_id]}" == @collectible.latest_stats) %>>
+                      <%= "#{stat.capitalize} stats" %>
+                    </option>
+                  <% end %>
+                <% end %>
+              </select>
+
+            </div>
+          </div>
+
+      </div> <!-- closing panel -->
+
+    </div>
+  </div>
+  <% end %>
+
+  <%= render :partial => "dialogs/crop_card_photo_dialog" %>
+  <%= render :partial => "dialogs/fb_photo_select_dialog" %>
+
+  <script language="Javascript">
+    var cropCoords = {}
+    var jcrop_api;
+    jQuery(function($) {
+        initRatio = 223/333;
+      <% if (!@collectible.orientation.nil? && @collectible.orientation == 'LANDSCAPE') %>
+          initRatio = 333/223;
+      <% end %>
+
+        $('#card_image_crop').Jcrop({
+          aspectRatio: initRatio,
+          setSelect: [5, 5, 600, 600],
+          onChange:   updateCardImageCoords,
+          onSelect:   updateCardImageCoords
+        },function(){
+           jcrop_api = this;
+          });
+
+        $('.apply_crop_btn').click(function() {
+          updateSrvCardImageCoords();
+        });
+
+        $('#flip_card').click(function() {
+          $(".preview_wrap").toggleClass('preview_backside');
+        });
+
+        $('#collectible_field_pos').change(function() {
+          $('#card-preview-field_pos').text($('#collectible_field_pos').val());
+        });
+
+        $('#collectible_team_name').change(function() {
+          $('#card-preview-teamname').text($('#collectible_team_name').val());
+        });
+
+        $('#collectible_jersey_num').change(function() {
+          var num_value = $('#collectible_jersey_num').val().replace(/[^0-9\.]/g,'');
+          $('#jersey_number').text(num_value);
+        });
+
+        $('#collectible_weight').change(function() {
+          var num_value = $('#collectible_weight').val().replace(/[^0-9\.]/g,'');
+          $('#card-preview-weight').text('wt: '+num_value+' Lbs / ');
+        });
+
+        $('#collectible_height_ft, #collectible_height_in').change(function() {
+          $('#card-preview-height').text('ht: '+$('#collectible_height_ft').val()+"'"+$('#collectible_height_in').val()+'"');
+        });
+
+        $('#collectible_latest_stats').change(function() {
+                $.ajax({
+                  url: "/get_stat_table",
+                  type: 'POST',
+                  data: { stats: $('#collectible_latest_stats').val() }
+                });
+        });
+
+
+
+    });
+
+    updateSrvCardImageCoords = function() {
+    waitAnim();
+     $.ajax({
+              url: "/crop_cardimage",
+              type: 'POST',
+              data: {
+                  coords: cropCoords
+              }
+          });
+    }
+
+    updateCardImageCoords = function(coords)
+    {
+      cropCoords = coords
+      cropCoords.cid = $(".edit_collectible #cid").val();
+      var imgDim = $("#crop_card_image_dialog .crop_wrap .jcrop-holder");
+      cropCoords.iw = imgDim.width();
+      cropCoords.ih = imgDim.height();
+    }
+
+
+  </script>
+

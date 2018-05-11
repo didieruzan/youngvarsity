@@ -1,0 +1,25 @@
+var photo_content;
+
+<% if @is_owner %>
+  random = Math.floor(Math.random() * 200)
+  photo_content = '<img src="<%=@photo.full800  %>?'+random+'" />';
+
+  $('#photo_edit_dialog .photo_dialog_img_wrap').append(photo_content);
+
+    imgCropData = {};
+    imgCropData['guid'] = '<%=@photo.guid %>';
+
+  $('#photo_edit_dialog .photo_dialog_img_wrap img').Jcrop({
+    onChange:   updatePhotoCoords,
+    onSelect:   updatePhotoCoords
+  },function(){
+     jcrop_api = this;
+  });
+
+
+
+<% else %>
+ $('#photo_edit_dialog .photo_dialog_img_wrap').append(photo_content);
+<% end %>
+
+

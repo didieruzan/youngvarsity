@@ -1,0 +1,195 @@
+<style type="text/css">
+
+.dropdown-menu i {
+  font-size: 24px;
+  margin-right: 10px;
+}
+</style>
+
+<div style="float: left; max-width: 245px;">
+	<%= render :partial => "profile_img", user: current_user %>
+
+	<%= render :partial => "users/profile/profile_img_upload", user: current_user %>
+</div>
+
+<div style="float: right; width: 725px; ">
+	<div id="user_profile_form" style="width: 660px; margin-right: 20px;min-height: 300px; float: right; background: white; border: 10px #E9F1F4 solid; padding: 5px 15px 15px 15px;">
+		<%#= form_for ( @user ), :remote => true, :html => { :multipart => true } do |f| %>
+    <%= form_for ( @user ), :html => { :multipart => true, :class=> "edit_user_profile" } do |f| %>
+
+			<div class="well lead">
+				Edit your PSI (Pesonal Sports Identity) Look &amp; Feel
+			</div>
+
+				<div class="profile_form_fieldset">
+					<strong><label>Select a background image for your PSI</label></strong><br />
+					(a photo of you on a good hair day)<br /><br />
+					<div id="landscape-bg-alignment-frame">
+            <div id="landscape-bg-anim">
+              <div id="landscape-bg-alignment-frame-inner"
+                <% if !current_user.bgimg.blank? %>
+                  style="background-image: url(<%=userBgThumb%>);"
+                  <%else%>
+                  style="background-image: url(/assets/missing_img_small.jpg);"
+                  <%end%>>
+              </div>
+            </div>
+          </div>
+					<div style="width: 200px;float: left">
+
+          <div class="btn-group">
+              <div class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+              <i class="icon-picture"></i> New photo
+              <span class="caret"></span>
+            </div>
+            <ul class="dropdown-menu">
+                <li class="FBphotoSelect" data-form-id="edit_user_profile" ><a href="#"><i class="icon-facebook-sign"></i> From Facebook</a></li>
+                <li class="divider"></li>
+                <li class="fileinput-button"><a href="#"><i class="icon-upload-alt"></i> From Upload</a><%= f.file_field (:bgimg) %></li>
+            </ul>
+            <%= f.hidden_field :remote_bgimg_url, class: "remote_image_url_field" %>
+            <input type="hidden" id="reload" name="reload" value="false" />
+          </div>
+
+
+            <div id="crop_bg_image_btn" class="btn btn-info" style="<%="display:none;" if current_user.bgimg.blank? %>"><i class="icon-resize-full icon-white"></i> Align/Crop image</div>
+          </div>
+		    </div>
+
+				<div class="profile_form_fieldset">
+				  	<div class="well"><%= f.label "About you - Info Box", :style => "margin-bottom: -5px;" %></div>
+
+					 <div class="input-prepend"><span class="add-on">Firstname</span><%= f.text_field :firstname, :size => 21 %></div>
+
+           <div class="input-prepend pull-right"><span class="add-on">Lastname</span><%= f.text_field :lastname, :size => 21 %></div>
+				</div>
+				<div class="profile_form_fieldset">
+          <div class="input-prepend"><span class="add-on">Sport</span>
+						<%= f.select(:sport, options_for_select([ ['FootBall', 'football'], ['Baseball', 'baseball'], ['Basketball', 'basketball'], ['Lacrosse', 'lacrosse'], ['Soccer', 'soccer']], @user.sport), { :include_blank => 'Select a Sport' } ) %>
+          </div>
+
+          <div class="input-prepend  pull-right"><span class="add-on">Team name</span>
+					  <%= f.text_field :team_name, :size => 21 %>
+          </div>
+				  <div class="input-prepend"><span class="add-on">Field position</span>
+					  <%= f.text_field :field_pos, :size => 21 %>
+          </div>
+
+          <div class="input-prepend pull-right"><span class="add-on">School name</span>
+					  <%= f.text_field :school_name, :size => 21 %>
+          </div>
+
+          <div class="input-prepend"><span class="add-on">Team Website (Optional):</span>
+              <%= f.text_field :teamurl, :size => 50, :style => "width: 368px;" %>
+          </div>
+
+				</div>
+
+				<div class="profile_form_fieldset">
+				<%= f.label "Bio (optional)" %>
+				<%= f.text_area(:bio, :cols => 76, :rows => 7, :class => 'tinymceNOT', :style =>"width: auto") %>
+				<%#= tinymce( {content_css: "/assets/tinymce.css" } ) %>
+				</div>
+        <div class="profile_form_fieldset">
+				  	<table width="725" cellspacing="10">
+				  		<tr>
+				  			<td>
+				  				Box color:&nbsp;
+				  			</td>
+				  			<td>
+  								<div id="bg_color_selector" style="float: left" class="<%='transparent_symbol' if @user.box_bg_color.blank?%> ">
+
+
+  								<%= f.hidden_field :box_bg_color, :size => 7 , :class =>'colorPicker' %>
+  								</div>
+                  <div style="float: left; margin: 10px 5px;">
+  					<input type="checkbox" name="box_bg_color_transparent" class="box_bg_color_transparent" id="user[box_bg_color_transparent]" <%='checked="checked"' if @user.box_bg_color.blank? %> > Transparent
+                  </div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Text color:
+							</td>
+							<td>
+								<%= f.hidden_field :box_text_col, :size => 7 , :class =>'colorPicker' %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+					Alignment:
+							</td>
+							<td>
+					<%= f.radio_button(:box_pos, "left", :class=>"box_pos", :checked => @user.box_pos == 'left') %> Left &nbsp;
+					<%= f.radio_button(:box_pos, "right", :class=>"box_pos", :checked => @user.box_pos == 'right') %> Right
+							</td>
+						</tr>
+					</table>
+
+        </div>
+
+
+
+				<div class="apply_filedset profile_form_fieldset">
+		    		<%= f.submit("SAVE", :id => "profile_save_btn", :class => "btn btn-danger btn-large")%>
+
+            <div class="btn disabled btn-large" style="margin-left: 20px;"><%= link_to 'Cancel', :back %></div>
+
+            <div class="saveNotif"> Saved!</div>
+				</div>
+		<% end %>
+
+	</div>
+
+</div>
+
+<%= render :partial => "dialogs/upload_progressbar" %>
+<%= render :partial => "dialogs/crop_psi_bg_dialog" %>
+<%= render :partial => "dialogs/fb_photo_select_dialog" %>
+
+<script type="text/javascript">
+$(document).ready(function()
+  {
+  	<%
+    box_bg_color = 'transparent'
+    if !current_user.box_bg_color.blank?
+      hex = current_user.box_bg_color
+      col = hex.scan(/../).map {|color| color.to_i(16)}
+      box_bg_color = "rgba(#{col[0]}, #{col[1]}, #{col[2]}, 0.5)"
+    end
+    %>
+    <% if !current_user.bg_image_uid.blank? %>
+	$("#pub_profile_preview_pane").css('background-image', 'url("<%=userBgFull%>")').css('background-position', '<%=userBgAlign%>');
+
+	<%else%>
+	$("#pub_profile_preview_pane").css("background", "#dbdada url('/assets/missing_background_img.gif') center no-repeat");
+	<%end%>
+	<% if current_user.box_pos == 'right' %>
+		$("#profileBoxWrapper").css('right', '35px').css('left', 'auto');
+	<%end%>
+	$("#profileBoxWrapper #moreOnUser").css('background-color', '#<%=current_user.box_text_col %>');
+	<% if !current_user.box_bg_color.blank? %>
+      $("#profileBoxWrapper #moreOnUser").css('color', '#<%=current_user.box_bg_color %>');
+    <% end %>
+
+    $("#profileBoxWrapper").css('color', '#<%=current_user.box_text_col %>').css('background-color', '<%=box_bg_color%>');
+
+
+
+  });
+
+</script>
+
+<% if cookies[:fanpage_edit_ttip]!='hide' && @hide_welcome.nil?  %>
+<% header = "Welcome to YoungVarsity!" %>
+<% body = "<div>On this page you will set how your public PSI (Personal Sports Identity) looks.</div>
+              <div>Upload a photo of you playing your favorite sports, to use as your PSI background, then add some details about yourself, and you're set.</div>
+               <div style=\"line-height: 24px; margin: 10px 0;\">
+                  <div>Then, click on </div><span class=\"home_icon\"></span>
+                  <div> to view your Public PSI.</div></div>
+                <div style=\"clear: left;line-height: 24px; margin: 10px 0;\">
+                <div>Or, click on</div><span class=\"plus_icon\"></span><div> to start adding content to your PSI.</div>
+                <div style=\"font-size: 14px; font-style: italic;clear: left;margin-top: -10px\">(Upload Photos, crop or resize them, add some Stats, select your equipments Wishlist, etc...)</div>
+            </div>" %>
+<%= render :partial => "dialogs/pop_yellow_dialog", :locals => { :header => header, :body => body } %>
+<%end%>

@@ -1,0 +1,81 @@
+.prod-wrap, #left_nav
+{
+	float: left;
+	margin: 0 15px 20px 0;
+	border: 1px solid #ccc;
+	width: 230px;
+	background: #ffffff;
+	padding-top: 10px;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  position: relative;
+}
+
+.prod-title, .prod-price
+{
+	float: left;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 400;
+	margin: 10px 0;
+	padding: 0 5px;
+}
+
+.prod-price
+{
+	display: none;
+}
+
+.prod-wrap .prod_wishlist_flag
+{
+  width: 46px;
+  height: 64px;
+  position: absolute;
+  right: 10px;
+  top: -11px;
+  background: transparent url(/assets/icon_wish_it.png) repeat 0 0;
+  display: none;
+}
+
+.prod-wrap.selected .prod_wishlist_flag
+{
+  display: block;
+}
+
+.prod-wrap.selected .prod_wishlist_flag:hover, .prod-wrap.selected:hover .prod_wishlist_flag:hover
+{
+  background-position: -46px 0;
+  cursor: pointer;
+  display: block;
+}
+
+.prod-wrap.selected:hover .prod_wishlist_flag
+{
+  background-position: 0 0;
+}
+
+.prod-wrap:hover .prod_wishlist_flag
+{
+  background-position: -92px 0;
+  cursor: pointer;
+  display: block;
+}
+
+.item_moreinfo
+{
+    background: none repeat scroll 0 0 white;
+    left: 45px;
+    opacity: 0.6;
+    position: absolute;
+    top: 115px;
+    display: none;
+}
+
+.prod-wrap:hover .item_moreinfo, .item_moreinfo.btn:hover
+{
+  opacity: 0.8;
+  background: inherit;
+  display: block;
+}

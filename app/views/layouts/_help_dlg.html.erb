@@ -1,0 +1,25 @@
+<div id="help_dlg">
+  <div id="help_dlg_close"></div>
+  <div id="help_dlg_wrap">
+    <p>What can you do next?</p>
+    <ul>
+      <% if user_signed_in? %>
+      <li>
+        <%= link_to "View you public fanpage", "/view/#{current_user.guid}" %>
+      </li>
+      <li>
+        <%= link_to_unless_current "Edit you public fanpage", "/profile" %>
+      </li>
+      <li>
+        <%= link_to_unless_current "Visit your media page to add photos, videos, zoom & crop some of photos and more", "/media" %>
+      </li>
+      <li>
+        Use the search box above to invite some friends to see your fanpage
+      </li>
+
+      <% end %>
+    </ul>
+
+
+  </div>
+</div>

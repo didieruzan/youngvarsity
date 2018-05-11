@@ -1,0 +1,29 @@
+<h1>Teammates</h1>
+
+<div class="btn btn-small btn-inverse right"><i class="icon-th icon-white"></i> <%= link_to 'Back', "/controls" %></div>
+<div id="teammate-grid-wrap">
+
+<% if @teammates.any? %>
+  <% @teammates.each do |teammate| %>
+    <% if teammate.id != current_user.id %>
+        <div class="teammatePreviewItem">
+          <div class="teammatesPreviewFrame">
+            <%= image_tag(teammate.getAvatarSq_med) %>
+            <div class="caption"><%= "#{teammate.firstname} #{teammate.lastname}aa".truncate(15) %></div>
+          </div>
+          <div class="control-btns">
+            <% if (teammate.is_active === false) %>
+              <div class="btnblue btn-smaller "><a data-remote="true" href="/invite/<%=teammate.facebook_id%>">Invite <%=teammate.firstname%> to YoungVarsity</a></div><br />
+               <div class="btnblue btn-smaller "><a href="/unfriend/<%=teammate.guid%>">Un-mark <%=teammate.firstname%> as teammate</a></div>
+              <% else %>
+                <div class="btnblue btn-smaller"><a href="/view/<%=teammate.guid%>">View <%=teammate.firstname%>'s PSI</a></div><br />
+                <div class="btnblue btn-smaller"><a href="/unfriend/<%=teammate.guid%>">Un-mark <%=teammate.firstname%> as teammate </a></div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+  <% end %>
+<%else%>
+  <p><%=person.firstname%> didn't select any teammate yet</p>
+<%end%>
+</div>

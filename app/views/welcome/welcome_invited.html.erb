@@ -1,0 +1,70 @@
+    <style type="text/css">
+
+#main_wrap
+{
+  background: none;
+}
+
+#outer_main
+{
+  float: left;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, .5);
+}
+
+.welcome_invite #welcome_dlg {
+    border: 18px solid rgba(80, 80, 80, 0.5);
+    top: 50px;
+}
+
+#invited_stamp
+{
+  background: transparent url('/assets/invited_stamp.png') center center no-repeat;
+  width: 160px;
+  height: 160px;
+  position: absolute;
+  top: 100px;
+  left: 110px;
+  z-index: 9999;
+}
+
+#we_wont_let_you
+{
+  background: transparent url('/assets/we_wont_let_you.png') center center no-repeat;
+  width: 372px;
+  height: 30px;
+  position: absolute;
+  bottom: 77px;
+  right: 100px;
+  z-index: 9999;
+}
+
+
+    </style>
+
+<script type="text/javascript">
+$(document).ready(function()
+  {
+    var h = $(window).height()-50;
+    $("#outer_main").height(h) ;
+  });
+</script>
+
+  <div id="outer_main" class="welcome_invite">
+    <div id="outer_main_wrap">
+
+        <div id="main_wrap" style="background: none;">
+
+            <div id="inner_wrap">
+              <% if @inviteToken %>
+                <%= render :partial => "dialogs/welcome_dlg", :locals => { :invite => true }  %>
+              <% end %>
+              <div id="invited_stamp"></div>
+
+            </div>
+
+          </div>
+        </div>
+    </div>
+

@@ -1,0 +1,96 @@
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<table cellpadding="0" cellspacing="5" width="700" style="float: left; width: 100%;">
+  <tr>
+      <td>
+        <strong><%= f.label :sku %></strong><br />
+        <%= f.text_field :sku, :size => 15 %>
+      </td>
+      <td>
+         <strong>Mfg:</strong><br />
+        <%= f.text_field :manufacturer , :size => 15 %>
+      </td>
+       <td>
+        <strong>Price:</strong><br />
+        <%= f.text_field :price , :size => 10 %>
+      </td>
+  </tr>
+  <tr>
+    <td align="left" width="100%" colspan="3">
+      <strong><%= f.label :title %></strong><br />
+      <%= f.text_field :title, :size => 80 %>
+    </td>
+  </tr>
+
+  <tr>
+  <!--   <td align="left" colspan="2">
+      <strong><%#= f.label :tag_list, "Category tags" %></strong><br />
+      <%#= f.text_field :tag_list %>
+    </td> -->
+    <td align="left" colspan="3">
+      <%= "category" %><br />
+      <%= collection_select :product,  :category_ids, Category.sort_by_ancestry(Category.all), :id, :name, { :disabled => lambda{|category| category.is_root? }}, {:multiple => true, :size => Category.all.count} %>
+      <%#= f.collection_select :category_ids, Category.all.collect {|x| [x.name, x.id]}, { :prompt => 'Select Category', :disabled => lambda{|category| category.is_root1? }}, :multiple => true %>
+    </td>
+  </tr>
+
+
+  <tr>
+    <td align="left" >
+      <strong>Short Description:</strong><br />
+      <%= f.text_area :description_short, :cols=> 40, :rows => 5 %>
+    </td>
+    <td align="left">
+      <strong>Description:</strong><br />
+      <%= f.text_area :description, :cols=> 40, :rows => 5 %>
+    </td>
+    <td align="left">
+    </td>
+  </tr>
+  <tr>
+    <td align="left" colspan="2">
+      <strong>Product details URL:</strong><br />
+      <%= f.text_field :url, :size => 80 %>
+    </td>
+     <td align="left" >
+      <strong>Is Active:</strong><br />
+      <%= f.check_box :is_active %>
+    </td>
+  </tr>
+  <% if editing %>
+    <tr>
+      <td id="images_wrap" align="left" width="100%" colspan="3">
+        <% if @product.prodimages.any? %>
+          <% @product.prodimages.each do |i| %>
+            <%= render "prodimages/prod_edit_image", :img => i %>
+          <%end%>
+        <%end%>
+      </td>
+    </tr>
+
+    <tr>
+      <td align="left" width="100%" colspan="3">
+        <div id="upload_new_img" class="btn btn-small">Upload new image</div>
+      </td>
+    </tr>
+  <%end%>
+  <tr>
+    <td align="right" width="100%" colspan="3">
+       <%= f.submit  :class => 'btngreen', :style => 'float: right; margin-right: 25px;'  %>
+    </td>
+  </tr>
+
+</table>
+<% end %>
+
+

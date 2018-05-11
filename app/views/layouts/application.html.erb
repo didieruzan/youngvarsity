@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <script type="text/javascript">
+    var token = null;
+    <% if user_signed_in? %>
+      token = "<%=current_user.guid%>"
+    <% end %>
+  </script>
+  <title>YoungVarsity | Social playground for young athletes</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <% if Rails.env.production? %>
+    <%= render :partial => "analytics/analytics" %>
+  <%end%>
+  <%= render :partial => "analytics/mixpanel" %>
+  <script type="text/javascript">
+    $(document).ready(function()
+    {
+      var user_log_identity = "<%=user_log_identity%>";
+      mixpanel.identify(user_log_identity);
+      mixpanel.register({ distinct_id: user_log_identity });
+      mixpanel.name_tag(user_log_identity);
+    });
+
+  </script>
+  <style type="text/css">
+    <% if !@bg.nil? && @bg == "opaque" %>
+      #inner_wrap
+      {
+        background: white;
+      }
+    <% end %>
+
+    <% if (!person.nil? && !current_user.nil?) %>
+      <% if (person.id == current_user.id) %>
+        header #signup_profile {
+          margin-right: 35px;
+        }
+      <% end %>
+    <% end %>
+    /*if (top.location != self.location) {
+      // we're in an iframe (Facebook)
+      window.location.href="<%= ENV["WEBSITE_URL"] %>"
+    }*/
+  </style>
+  <link rel="stylesheet" href="/css/jquery.Jcrop.css" type="text/css" />
+  <script src="/js/jquery.Jcrop.min.js"></script>
+  <link href="/css/font-awesome.css?5" rel="stylesheet">
+</head>
+<body>
+  <%= render :partial => "layouts/fbinit"  %>
+  <%= render :partial => "layouts/announcement" if user_signed_in?  %>
+  <div class="<%=@person.sport if !@person.nil?%>" id="theme_bg">
+    <%= render :partial => "layouts/nav/tong_nav" if user_signed_in? %>
+    <header>
+        <div id="inner_header">
+            <%= render :partial => "layouts/logo" %>
+            <% if user_signed_in? %>
+                <%= render :partial => "layouts/nav/top_main_menu" %>
+                <div id="signup_profile" >
+                  <%= render :partial => "layouts/nav/profile_image_small" %>
+                  <%= render :partial => "layouts/nav/top_right_dropmenu" %>
+                </div>
+            <% else %>
+                <div id="signup_profile">
+                    <%#= link_to "Sign up", new_user_registration_path %>
+                    <%#= link_to "Login", new_user_session_path %>
+                    <%#### FOR NOW UNTIL OUT OF INVITE ONLY= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+                </div>
+            <% end %>
+
+        </div>
+      </header>
+    <div id="outer_main_wrap">
+        <div id="main_wrap">
+
+          <% flash.each do |name, msg| %>
+            <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+              <a class="close" data-dismiss="alert">×</a>
+              <%= msg %>
+            </div>
+          <% end %>
+          <div id="inner_wrap">
+            <%= yield %>
+          </div>
+          <%= render :partial => "layouts/help_dlg" %>
+          <div class="alpha"><%= render :partial => "layouts/footer" %></div>
+          <% if user_signed_in? && current_user.sign_in_count < 5 && cookies[:welcome_dlg]!='hide' %>
+            <%= render :partial => "dialogs/welcome_dlg", :locals => { :invite => false }  %>
+          <% end %>
+        </div>
+    </div>
+
+  </div>
+
+  <%= render :partial => "layouts/wait_anim" %>
+  <%= render :partial => "layouts/search_user_result" if user_signed_in? %>
+  <%= render :partial => "layouts/share_psi_dlg" if user_signed_in? %>
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function()
+    {
+      <% if !@media.nil? && @media === true %>
+      $('#photo_src_selection').dialog("open");
+      <% end %>
+    });
+</script>
+
+
+</body>
+</html>

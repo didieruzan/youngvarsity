@@ -1,0 +1,15 @@
+$("#card_photo").css('background-image', 'url(<%= @collectible.srcphoto_url(:medium) %>)' );
+jcrop_api.setImage('<%= @collectible.srcphoto_url(:ori_medium) %>');
+
+<% if !@collectible.orientation.nil? %>
+  <% if @collectible.orientation == "LANDSCAPE" %>
+    $("#card_preview").removeClass("card_portrait").addClass("card_landscape");
+    jcrop_api.setOptions( { aspectRatio: 333/223 });
+  <% else %>
+    $("#card_preview").removeClass("card_landscape").addClass("card_portrait");
+    jcrop_api.setOptions( { aspectRatio: 223/333 });
+  <% end %>
+<% end %>
+jcrop_api.setOptions( { setSelect: [5, 5, 600, 600]});
+stopWaitAnim();
+$("#crop_card_image_dialog").fadeOut();

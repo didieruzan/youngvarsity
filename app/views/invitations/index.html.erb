@@ -1,0 +1,33 @@
+<style type="text/css">
+table {
+  float: left;
+  margin: 20px 0;
+}
+</style>
+
+<h1>Listing invitations</h1>
+<div class="right btnblue" ><%= link_to 'New Invitation', new_invitation_path %></div>
+<table width="90%">
+  <tr>
+    <th align="left">From</th>
+    <th align="left">Sent to</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @invitations.each do |invitation| %>
+  <tr>
+    <% u = User.find_by_id(invitation.sender) || nil %>
+    <td><%= "#{u.nickname}" if !u.nil? %></td>
+    <td class="ttip" title="<%= invitation.comments %>"><%= invitation.recipient %></td>
+    <td><%="USED" if !invitation.is_active %></td>
+    <td><%= link_to 'Edit', edit_invitation_path(invitation) %></td>
+    <td><%= link_to 'Destroy', invitation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+

@@ -1,0 +1,33 @@
+  <div class="comment_input_row">
+    <div class="avatar_round_sm"><%= link_to image_tag(current_user.getAvatarThumb) , "/users/#{current_user.guid}" %></div>
+    <div class="comment_input">
+      <%= form_for @comment_create, :remote => true, :html => {:id => p.id}  do |f| %>
+          <%= f.text_area(:post,
+                      {   :size => "7x2",
+                        :id => "textarea_#{p.id}",
+                        :maxlength => "1000",
+                        :class => "grid_item_comment",
+                        :placeholder => "Add a comment..."
+                      }) %>
+          <%= f.hidden_field(:photo_id, :value => p.id, :id => "hid_#{p.id}") %>
+        <%= f.submit  "Post", {:class => "grid_comment_submit btnblue btn-smaller"} %>
+      <% end %>
+    </div>
+  </div>
+  <div class="grid_photo_comments">
+    <% if p.comments.any? %>
+      <% p.comments.each do |c| %>
+        <div class="grid_photo_comment_row" id="comment_<%=c.guid%>">
+          <div class="avatar_round_sm"><%= link_to image_tag(c.user.getAvatarThumb) , "/users/#{c.user.guid}" %></div>
+          <div class="grid_photo_comment"><span><%=c.user.firstname%>:</span> <%=c.post %></div>
+          <% if current_user.id === c.user_id || current_user.id === c.photo.user_id%>
+            <div class="comment_delete">
+              <%= link_to image_tag("blank.png", :alt=>"Remove"), "/comment/delete/#{c.guid}", remote: true %>
+            </div>
+          <%end%>
+        </div>
+      <% end%>
+      <div class="bottom_sepa"></div>
+    <% end%>
+  </div>
+

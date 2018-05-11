@@ -1,0 +1,18 @@
+// Place all the styles related to the Collectibles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.flag-header-red {
+  background: transparent url('/assets/header_flag.png') no-repeat 0 0;
+  float: left;
+  margin: 15px 0 15px 15px;
+  width: 345px;
+  height: 81px;
+  color: #FFE2A8;
+  font-family: "Marcelle";
+  font-size: 38px;
+  line-height: 50px;
+  padding: 30px 0 0 15px;
+  text-shadow: 0 0 #275A6F, 0 3px #275A6F, 3px 0 #275A6F, 0 -3px #275A6F;
+}

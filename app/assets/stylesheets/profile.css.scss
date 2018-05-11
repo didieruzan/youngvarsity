@@ -1,0 +1,281 @@
+// Place all the styles related to the profile controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#profile_lookNfeel_pane,
+#profile_theme_pane
+{
+	display: block;
+}
+
+/*
+#user_profile_form ul
+{
+list-style-type:none;
+margin:0;
+padding:0;
+}
+#user_profile_form li
+{
+display:inline;
+margin-right: 25px;
+font-size: 14px;
+font-weight: bold;
+color: #3C3B39;
+cursor: pointer;
+padding: 5px 10px;
+}
+
+#user_profile_form li:hover,
+#user_profile_form li.selected
+{
+    color: #D66A4D;
+    background: none repeat scroll 0 0 #E9F1F4;
+}
+
+*/
+
+#user_profile_form fieldset.name input {
+    margin-right: 20px;
+    width: 200px;
+}
+
+#user_profile_form fieldset label
+{
+    background: none repeat scroll 0 0 #E9F1F4;
+    float: left;
+    font-size: 14px;
+    line-height: 24px;
+    margin: 10px 0;
+    text-indent: 5px;
+    width: 100%;
+}
+
+table#user_bio_tbl
+{
+    float: left;
+    height: 160px;
+    width: 600px;
+}
+
+.profile_form_fieldset
+{
+    float: left;
+    width: 660px;
+}
+
+.profile_form_fieldset input[type=text]
+{
+    width: 180px;
+}
+.apply_filedset
+{
+    width: 98%;
+    margin: 20px 0 0;
+}
+
+#pub_profile_preview_btn
+{
+    font-weight: bold;
+    cursor: pointer;
+    color: #56CEF1;
+    float: right;
+}
+
+#pub_profile_preview_pane
+{
+    width: 800px;
+    height: 600px;
+    padding: 0;
+    float: left;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: cover;
+}
+
+
+#tooltip_fanpage_edit_ttip1
+{
+    background: url("/assets/tooltip_fanpage_edit.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 356px;
+    position: absolute;
+    right: 20px;
+    top: 18px;
+    width: 337px;
+    z-index: 9997;
+    display: none;
+}
+
+#tooltip_fanpage_edit_ttip1 div.hide
+{
+    color: blue;
+    cursor: pointer;
+    float: right;
+    font: 14px arial;
+    height: 20px;
+    margin: 304px 36px 0 0;
+    text-decoration: underline;
+}
+
+.ui-widget-header
+{
+    color: #E9F1F4;
+    background: #4c4a45; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRjNGE0NSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzMDMwMzAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  #4c4a45 0%, #303030 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4c4a45), color-stop(100%,#303030)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #4c4a45 0%,#303030 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #4c4a45 0%,#303030 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #4c4a45 0%,#303030 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #4c4a45 0%,#303030 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4a45', endColorstr='#303030',GradientType=0 ); /* IE6-8 */
+}
+
+
+#profileBoxWrapper .schoolInfoRow
+    {
+      font-family: 'Oswald', sans-serif;
+    }
+
+#profileBoxWrapper .bioRow
+    {
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      width: 330px;
+      /*display: none;*/
+}
+
+#profileBoxWrapper .nameRow {
+    font-family: "Marcelle";
+    font-size: 55px;
+    line-height: 55px;
+    margin-bottom: 8px;
+}
+
+#profileBoxWrapper .schoolInfoRow {
+    font-size: 20px;
+}
+
+
+#preloader
+{
+    width: 100%;
+    height: 100%;
+    background: transparent url('/assets/anim35.gif') center no-repeat;
+    position: fixed;
+    display: none;
+}
+
+
+
+.profile_fileinput-button {
+  overflow: hidden;
+  position: relative;
+  float: left;
+  cursor: pointer;
+  margin: 25px 0 0 20px;
+}
+
+.profile_fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transform: translate(-300px, 0) scale(4);
+  font-size: 23px;
+  direction: ltr;
+  cursor: pointer;
+}
+
+#crop_bg_image_btn
+{
+  margin: 10px 0 0 0;
+}
+
+.dropdown-menu .fileinput-button {
+    height: auto;
+    width: auto;
+}
+
+#landscape-bg-alignment-frame
+{
+    width: 146px;
+    height: 112px;
+    background: transparent url('/assets/landscape-bg-alignment-frame.png') 0 0 no-repeat;
+    float: left;
+    margin: 0 0 0 20px;
+    padding: 13px 0 0 15px;
+}
+
+#landscape-bg-anim {
+  background: transparent url('/assets/xsmall_anim.gif') center center no-repeat;
+  float: left;
+}
+
+#landscape-bg-alignment-frame-inner
+{
+    width: 122px;
+    height: 91px;
+
+    float: left;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: cover;
+}
+
+
+.saveNotif
+{
+    float: left;
+    color: green;
+    margin-left: 20px;
+    display: none;
+}
+
+#user_profile_form .what_next_wrap
+{
+  float: right;
+  width: 310px;
+/*  height: 130px; */
+  padding: 10px;
+  background: #fffab6;
+  border: 5px solid #ccc;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  display: none;
+
+}
+
+.what_next_wrap h2
+{
+  width: 100%;
+  float: left;
+}
+
+#user_profile_form .what_next_wrap ul
+{
+  width: 100%;
+  float: left;
+  list-style-type: auto;
+}
+
+
+#user_profile_form .what_next_wrap li
+{
+display: block;
+margin-right: 0;
+font-size: inherit;
+font-weight: bold;
+color: #3C3B39;
+cursor: pointer;
+padding: 0;
+line-height: 24px;
+}

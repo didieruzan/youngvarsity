@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript">
+    var token = null;
+    <% if user_signed_in? %>
+      token = "<%=current_user.guid%>"
+    <% end %>
+  </script>
+  <title>YoungVarsity | Social playground for young athletes</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+  <link rel="stylesheet" href="css/jquery.Jcrop.css" type="text/css" />
+  <script src="js/jquery.Jcrop.min.js"></script>
+  <% if Rails.env.production? %>
+    <%= render :partial => "analytics/analytics" %>
+  <%end%>
+  <%= render :partial => "analytics/mixpanel" %>
+  <script type="text/javascript">
+    $(document).ready(function()
+    {
+      var user_log_identity = "<%=user_log_identity%>";
+      mixpanel.identify(user_log_identity);
+      mixpanel.register({ distinct_id: user_log_identity });
+      mixpanel.name_tag(user_log_identity);
+    });
+  </script>
+  <style type="text/css">
+      header #signup_profile {
+        margin-right: 35px;
+      }
+  </style>
+  <script language="Javascript">
+    var cropCoords = {}
+    jQuery(function($) {
+        $('#psi_bg_crop_img').Jcrop({
+          aspectRatio: 4 / 3,
+          setSelect: [0, 0, 380, 380],
+          onChange:   updateCropCoords,
+          onSelect:   updateCropCoords
+        },function(){
+            jcrop_api = this;
+          });
+
+        $('#apply_crop_btn').click(function() {
+          updateServerCropCoords();
+        });
+
+        $('#crop_bg_image_btn').click(function() {
+          $(".apply_filedset.profile_form_fieldset").css("visibility", "hidden");
+          $('#crop_psi_bg_dialog').show();
+        });
+
+        $('#cancel_crop_btn').click(function() {
+          $(".apply_filedset.profile_form_fieldset").css("visibility", "visible");
+          $('#crop_psi_bg_dialog').hide();
+        });
+
+    });
+
+    updateServerCropCoords = function() {
+    waitAnim();
+     $.ajax({
+              url: "/crop_psi",
+              type: 'POST',
+              data: {
+                  coords: cropCoords
+              }
+          });
+    }
+
+    updateCropCoords = function(coords)
+    {
+      cropCoords = coords
+      var imgDim = $("#crop_psi_bg_dialog .psi_bg_crop_wrap .jcrop-holder");
+      cropCoords.iw = imgDim.width();
+      cropCoords.ih = imgDim.height();
+    }
+
+
+  </script>
+</head>
+<body>
+    <%= render :partial => "layouts/fbinit"  %>
+   <%= render :partial => "layouts/announcement" if user_signed_in?  %>
+  <div id="preloader"></div>
+  <div class="<%=@person.sport if !@person.nil?%>" id="theme_bg">
+    <%= render :partial => "layouts/nav/tong_nav" if user_signed_in? %>
+    <header>
+        <div id="inner_header">
+          <%= render :partial => "layouts/logo" %>
+          <%= render :partial => "layouts/nav/top_main_menu" %>
+          <div id="signup_profile">
+              <% if user_signed_in? %>
+                <%= render :partial => "layouts/nav/profile_image_small" %>
+                <%= render :partial => "layouts/nav/top_right_dropmenu" %>
+              <% else %>
+                  <%= link_to "Login", new_user_session_path %>
+                  <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+            <% end %>
+          </div>
+        </div>
+      </header>
+    <div id="outer_main_wrap" class="psi_edit">
+        <div id="main_wrap">
+          <% flash.each do |name, msg| %>
+            <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+              <a class="close" data-dismiss="alert">×</a>
+              <%= msg %>
+            </div>
+          <% end %>
+          <div id="inner_wrap">
+            <%= yield %>
+          </div>
+          <%= render :partial => "layouts/help_dlg" %>
+          <% if user_signed_in? && current_user.sign_in_count < 5 && cookies[:welcome_dlg]!='hide' %>
+            <%= render :partial => "dialogs/welcome_dlg", :locals => { :invite => false }  %>
+          <% end %>
+          <div class="alpha"><%= render :partial => "layouts/footer" %></div>
+        </div>
+
+    </div>
+  </div>
+  <%= render :partial => "layouts/wait_anim" %>
+  <%= render :partial => "layouts/search_user_result" if user_signed_in? %>
+  <%= render :partial => "layouts/share_psi_dlg" if user_signed_in? %>
+
+
+</body>
+</html>

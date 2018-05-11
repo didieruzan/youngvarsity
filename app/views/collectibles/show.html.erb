@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Srcphoto:</b>
+  <%= @collectible.srcphoto %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @collectible.user_id %>
+</p>
+
+<p>
+  <b>Field pos:</b>
+  <%= @collectible.field_pos %>
+</p>
+
+<p>
+  <b>Team name:</b>
+  <%= @collectible.team_name %>
+</p>
+
+<p>
+  <b>Jersey num:</b>
+  <%= @collectible.jersey_num %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_collectible_path(@collectible) %> |
+<%= link_to 'Back', collectibles_path %>

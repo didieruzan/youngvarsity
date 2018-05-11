@@ -1,0 +1,13 @@
+$("#gridphoto_<%=@photo.guid%> .share_btn_wrap").hide();
+stopWaitAnim();
+<% if @error=== true %>
+$.gritter.add({
+                title: 'Error',
+                text: 'Failed to share photo on Facebook'
+              });
+<% else %>
+$.gritter.add({
+                title: 'Photo Shared!',
+                text: 'Shared on Facebook successfully'
+              });
+<% end %>

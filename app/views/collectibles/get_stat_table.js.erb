@@ -1,0 +1,30 @@
+<% if !@chosen_stats.nil? %>
+	
+	<% stats = getSpecificStats @chosen_stats %>
+	//$('.sportIcon').data("sporticon", "&#x<%=stats[:icon]%>;");
+	$('.sportIcon').hide();
+	$("#stat_table").empty();
+	$("#stat_table").append("<h3>MY STATS</h3><table></table>");
+
+
+	<%  c = 0 
+	stats[:labels].each do |k, lbl|
+    	if !stats[:data][k].blank? 
+            c=c+1 
+            break if c > 7 %>
+            $("#stat_table table").append("<tr><td><%=lbl[:label]%></td><td><%=stats[:data][k]%> </td></tr>");
+        <% end %>
+   <% end %>
+
+
+
+	
+
+
+
+
+	$("#stat_table").fadeIn();
+
+<% else %>
+	$("#stat_table").fadeOut();
+<% end %>

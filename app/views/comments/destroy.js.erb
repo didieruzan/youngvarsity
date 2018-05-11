@@ -1,0 +1,5 @@
+<%if @c_id%>
+  $("#<%=@c_id%>").remove();
+<%end%>
+
+$(".middle_grid").masonry( 'reload' );

@@ -1,0 +1,231 @@
+<style type="text/css">
+#tong_nav .stat_col {
+  float: left;
+  border-right: 1px solid white;
+  padding: 0;
+  text-align: center;
+}
+#tong_nav .col_label
+{
+  border-bottom: 1px solid white;
+  padding: 0 5px;
+}
+#tong_nav .col_stat_label
+{
+  padding: 0 5px;
+}
+#tong_nav .stat_icon
+{
+    float: left;
+    font-family: 'icomoon';
+    font-size: 36px;
+    line-height: 36px;
+    margin-left: 15px;
+    border: none;
+}
+#tong_nav #statsPreviewBox
+{
+  font-size: 16px;
+  min-height: 50px;
+  min-width: 275px;
+}
+
+
+#tong_nav .stat_col.col_stat_label .col_value
+{
+  margin-top: 5px;
+}
+
+
+#tong_nav .col_label {
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    padding: 2px 5px;
+}
+
+#tong_nav .col_value {
+  border-bottom: 1px solid white;
+}
+
+.stat_row {
+    float: left;
+    clear: left;
+    padding: 10px 0;
+    background: #363534;
+  }
+
+</style>
+
+<div id="tong_nav" class="expanded">
+  <div id="tong_main"></div>
+  <div class="tong_tabs bottom_ttip" id="tong_psi" title="<%=person.firstname%>'s PSI - Personal Sport Identity">
+      <a onClick="waitAnim(); mixpanel.track('Tong tab - view PSI ');" href="/view/<%=person.guid %>">
+      <img alt="" src="/assets/blank.png" width="55" height="55">
+    </a>
+  </div>
+
+  <div class="tong_tabs bottom_ttip" id="tong_photo" title="<%=person.firstname%>'s Photos &amp; Videos">
+    <% if (!person.nil? && !current_user.nil?) %>
+      <% if ( person.id === current_user.id ) %>
+        <a onClick="waitAnim(); mixpanel.track('Tong tab - Media ');" href="/me">
+      <% else %>
+        <a onClick="waitAnim(); mixpanel.track('Tong tab - Media ');" href="/users/<%=person.guid %>">
+      <% end %>
+      <img alt="" src="/assets/blank.png" width="55" height="55">
+      </a>
+    <% end %>
+  </div>
+
+  <div class="tong_tabs bottom_ttip" id="tong_stats" title="<%=person.firstname%>'s statistics">
+
+    <% displayStats = false %>
+    <% if !userFootballStats.nil? %>
+    <% statsDisplay =  "<div class='stat_row'><div class='stat_col stat_icon'>&#x25fe</div>" %>
+    <% statsDisplay +=  "<div class='stat_col col_stat_label'><div>&nbsp;</div><div class='col_value' style='clear: left;'>#{userFootballStats.title}</div></div>" if !userFootballStats.title.empty?
+
+    statsHeadersFootball.each do |k, lbl|
+
+      statsDisplay +=  "<div class='stat_col'><div class='col_label top_ttip' title='#{lbl[:section]}::#{lbl[:label]}'>#{lbl[:short]}</div><div class='col_value'>#{userFootballStats[k]}</div></div>" if !userFootballStats[k].nil?
+    end
+    %>
+
+    <% statsDisplay +=  "</div>" %>
+    <% displayStats = true %>
+<% end %>
+
+<% if !userSoccerStats.nil? %>
+
+    <% statsDisplay = '' if statsDisplay.nil? %>
+
+    <% statsDisplay +=  "<div class='stat_row'><div class='stat_col stat_icon'>&#x46</div>" %>
+    <% statsDisplay +=  "<div class='stat_col col_stat_label'><div>&nbsp;</div><div class='col_value' style='clear: left;'>#{userSoccerStats.title}</div></div>" if !userSoccerStats.title.empty?
+
+      statsHeadersSoccer.each do |k, lbl|
+        statsDisplay +=  "<div class='stat_col'><div class='col_label top_ttip' title='#{lbl[:section]}::#{lbl[:label]}'>#{lbl[:short]}</div><div class='col_value'>#{userSoccerStats[k]}</div></div>" if !userSoccerStats[k].nil?
+      end
+      %>
+
+    <% statsDisplay +=  "</div>" %>
+    <% displayStats = true %>
+<%end%>
+
+
+<% if !userBaseballStats.nil? %>
+
+    <% statsDisplay = '' if statsDisplay.nil? %>
+
+    <% statsDisplay +=  "<div class='stat_row'><div class='stat_col stat_icon'>&#xe000</div>" %>
+    <% statsDisplay +=  "<div class='stat_col col_stat_label'><div>&nbsp;</div><div class='col_value' style='clear: left;'>#{userBaseballStats.title}</div></div>" if !userBaseballStats.title.empty?
+
+    statsHeadersBaseball.each do |k, lbl|
+      statsDisplay +=  "<div class='stat_col'><div class='col_label top_ttip' title='#{lbl[:section]}::#{lbl[:label]}'>#{lbl[:short]}</div><div class='col_value'>#{userBaseballStats[k]}</div></div>" if !userBaseballStats[k].nil?
+    end
+    %>
+
+    <% statsDisplay +=  "</div>" %>
+    <% displayStats = true %>
+<%end%>
+
+<% if !userBasketballStats.nil? %>
+
+    <% statsDisplay = '' if statsDisplay.nil? %>
+
+    <% statsDisplay +=  "<div class='stat_row'><div class='stat_col stat_icon'>&#x45</div>" %>
+    <% statsDisplay +=  "<div class='stat_col col_stat_label'><div>&nbsp;</div><div class='col_value' style='clear: left;'>#{userBasketballStats.title}</div></div>" if !userBasketballStats.title.empty?
+
+      statsHeadersBasketball.each do |k, lbl|
+        statsDisplay +=  "<div class='stat_col'><div class='col_label top_ttip' title='#{lbl[:section]}::#{lbl[:label]}'>#{lbl[:short]}</div><div class='col_value'>#{userBasketballStats[k]}</div></div>" if !userBasketballStats[k].nil?
+      end
+      %>
+
+
+    <% statsDisplay +=  "</div>" %>
+    <% displayStats = true %>
+<%end%>
+
+    <div id="statsPreviewBox">
+      <% if displayStats %>
+       <%= statsDisplay.html_safe %>
+
+      <% else %>
+        <p><%=person.firstname%> didn't enter any stats yet</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="tong_tabs bottom_ttip" id="tong_wishlist" title="Wishlist gears <%=person.firstname%> has selected">
+    <div id="wishlistPreviewBox" onClick="waitAnim(); mixpanel.track('Tong tab - Visit Wishlist '); document.location.href='/wishlist/<%=person.guid %>'">
+      <% if person.wishes.count > 0 %>
+          <p><%=person.firstname%> Selected the following:</p>
+        <% person.wishes.each do |product| %>
+          <% if product.prodimages.any? %>
+            <div class="wishlistPreviewItem top_ttip" title="<%= product.title %><br />(Click for details)">
+              <%= image_tag product.prodimages.first.tiny %>
+            </div>
+          <%end%>
+        <%end%>
+      <%else%>
+        <p><%=person.firstname%> hasn't selected any item yet</p>
+      <%end%>
+    </div>
+  </div>
+
+  <div class="tong_tabs bottom_ttip" id="tong_teammates" title="<%=person.firstname%>'s Teammates">
+    <div id="teammatesPreviewBox">
+      <% if person.friends.count > 0 %>
+        <% person.friends.each do |friend| %>
+            <% if friend.id != person.id %>
+              <% if friend.is_active === true %>
+              <div class="teammatePreviewItem ttip" title="Click to view<br><%=friend.firstname %>'s PSI" onClick="document.location.href='/view/<%=friend.guid %>'">
+              <% else %>
+              <div class="teammatePreviewItem ttip" title="Click to send<br><%=friend.firstname %> an invitation<br>to Youngvarsity" onClick="prepareUserAndDisplaySearchedUserDlg('<%=friend.guid %>', '<%=friend.facebook_id %>', '<%=friend.firstname %>', '<%="https://graph.facebook.com/#{friend.facebook_id}/picture?width=100&height=100" %>');">
+              <% end %>
+                <div class="teammatesPreviewFrame">
+                  <%= image_tag(friend.getAvatarSmall) %>
+                  <div class="caption"><%= friend.firstname %></div>
+                </div>
+              </div>
+            <% end %>
+        <%end%>
+      <%else%>
+        <p><%=person.firstname%> didn't select any teammate yet</p>
+      <%end%>
+    </div>
+  </div>
+
+  <div class="tong_tabs bottom_ttip" id="tong_fav_teams" title="<%=person.firstname%>'s favorite teams">
+    <div id="fav_teamsPreviewBox">
+      <% if person.favorite_teams.count > 0 %>
+        <p>Favorite teams:</p>
+        <% person.favorite_teams.each do |team| %>
+          <div class="fav_teamsPreviewItem ttip" title="<%= team['name'] %>" >
+            <div>
+              <%= image_tag("https://graph.facebook.com/#{team['id']}/picture") %>
+            </div>
+          </div>
+        <%end%>
+      <%else%>
+        <p><%=person.firstname%> didn't select any team yet</p>
+      <%end%>
+    </div>
+  </div>
+<%if person.favorite_athletes.count > 0 %>
+  <div class="tong_tabs bottom_ttip" id="tong_fav_athletes" title="<%=person.firstname%>'s favorite athletes">
+    <div id="fav_athletesPreviewBox">
+      <% if person.favorite_athletes.count > 0 %>
+        <p>Favorite athletes:</p>
+        <% person.favorite_athletes.each do |athlete| %>
+          <div class="fav_athletesPreviewItem ttip" title="<%= athlete['name'] %>" >
+            <div>
+              <%= image_tag("https://graph.facebook.com/#{athlete['id']}/picture") %>
+            </div>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div>
+<%end%>
+
+
+</div>
+

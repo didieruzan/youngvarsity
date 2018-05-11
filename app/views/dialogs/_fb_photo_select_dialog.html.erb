@@ -1,0 +1,143 @@
+<script type="text/javascript">
+$(document).ready(function () {
+  var selector, logActivity, callbackAlbumSelected, callbackPhotoUnselected, callbackSubmit;
+  var buttonOK = $('#CSPhotoSelector_buttonOK');
+  var o = this;
+
+  /* --------------------------------------------------------------------
+   * Photo selector functions
+   * ----------------------------------------------------------------- */
+
+  fbphotoSelect = function(id, formId) {
+    // if no user/friend id is sent, default to current user
+    if (!id) id = 'me';
+
+    callbackAlbumSelected = function(albumId) {
+      var album, name;
+      album = CSPhotoSelector.getAlbumById(albumId);
+      // show album photos
+      selector.showPhotoSelector(null, album.id);
+    };
+
+    callbackAlbumUnselected = function(albumId) {
+      var album, name;
+      album = CSPhotoSelector.getAlbumById(albumId);
+    };
+
+    callbackPhotoSelected = function(photoId) {
+      var photo;
+      photo = CSPhotoSelector.getPhotoById(photoId);
+      buttonOK.show();
+      selector.hideAlbumSelector();
+      waitAnim();
+      $('.remote_image_url_field').val(photo.source);
+      $('#reload').val('reload_edit');
+      if (!formId)
+        $('form').submit();
+      else
+       $('form.'+formId).submit();
+
+    };
+
+    callbackPhotoUnselected = function(photoId) {
+      var photo;
+      album = CSPhotoSelector.getPhotoById(photoId);
+      buttonOK.hide();
+    };
+
+    callbackSubmit = function(photoId) {
+      var photo;
+      photo = CSPhotoSelector.getPhotoById(photoId);
+    };
+
+
+    // Initialise the Photo Selector with options that will apply to all instances
+    CSPhotoSelector.init({debug: false});
+    $('#photo_src_selection').dialog("close");
+
+    // Create Photo Selector instances
+    selector = CSPhotoSelector.newInstance({
+      callbackAlbumSelected : callbackAlbumSelected,
+      callbackAlbumUnselected : callbackAlbumUnselected,
+      callbackPhotoSelected : callbackPhotoSelected,
+      callbackPhotoUnselected : callbackPhotoUnselected,
+      callbackSubmit      : callbackSubmit,
+      maxSelection      : 1,
+      albumsPerPage     : 6,
+      photosPerPage     : 200,
+      autoDeselection     : true
+    });
+
+    // reset and show album selector
+    selector.reset();
+    selector.showAlbumSelector(id);
+  }
+
+
+  /* --------------------------------------------------------------------
+   * Click events
+   * ----------------------------------------------------------------- */
+
+
+  $(".FBphotoSelect").click(function (e) {
+    e.preventDefault();
+    id = null;
+    formId = null;
+    if ( $(this).attr('data-id') ) id = $(this).attr('data-id');
+    if ( $(this).attr('data-form-id') ) formId = $(this).attr('data-form-id');
+
+    fbphotoSelect(id, formId);
+  });
+
+  logActivity = function (message) {
+    $("#results").append('<div>' + message + '</div>');
+  };
+});
+
+
+
+</script>
+
+
+
+    <!-- Markup for Carson Shold's Photo Selector -->
+    <div id="CSPhotoSelector">
+      <div class="CSPhotoSelector_dialog">
+        <a href="#" id="CSPhotoSelector_buttonClose">x</a>
+        <div class="CSPhotoSelector_form">
+          <div class="CSPhotoSelector_header">
+            <p>Choose from Photos</p>
+          </div>
+
+          <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
+            <p>Browse your albums until you find a picture you want to use</p>
+            <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+              <div class="CSPhotoSelector_selectedCountContainer">Select an album</div>
+            </div>
+            <div class="CSPhotoSelector_photosContainer CSAlbum_container"></div>
+          </div>
+
+          <div class="CSPhotoSelector_content CSPhotoSelector_wrapper">
+            <p>Select a new photo</p>
+            <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+              <div class="CSPhotoSelector_selectedCountContainer"><span class="CSPhotoSelector_selectedPhotoCount">0</span> / <span class="CSPhotoSelector_selectedPhotoCountMax">0</span> photos selected</div>
+              <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
+            </div>
+            <div class="CSPhotoSelector_photosContainer CSPhoto_container"></div>
+          </div>
+
+          <div id="CSPhotoSelector_loader"></div>
+
+
+          <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
+            <a href="#" id="CSPhotoSelector_pagePrev" class="CSPhotoSelector_disabled">Previous</a>
+            <a href="#" id="CSPhotoSelector_pageNext">Next</a>
+            <div class="CSPhotoSelector_pageNumberContainer">
+              Page <span id="CSPhotoSelector_pageNumber">1</span> / <span id="CSPhotoSelector_pageNumberTotal">1</span>
+            </div>
+            <a href="#" id="CSPhotoSelector_buttonOK">OK</a>
+            <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YoungVarsity | Social playground for young athletes</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans|Crafty+Girls|Pacifico|Righteous|Lobster+Two|Maiden+Orange|Miltonian+Tattoo|Old+Standard+TT|Oswald:400,300|Ubuntu:400,300' rel='stylesheet' type='text/css'>
+
+  <%= csrf_meta_tags %>
+
+   <style type="text/css">
+
+    html {
+        height: 100%;
+    }
+
+    #outer_main_user_wrap
+    {
+
+      background: transparent;
+    }
+
+     .main_wrap
+      {
+        width: 100%;
+        min-width: 980px;
+        min-height: 700px;
+        float: left;
+        /*background: transparent url(/assets/baseball_corner_bg.png) no-repeat top right;*/
+        background: transparent;
+      }
+
+      .middle_message
+      {
+        background-color: white;
+        border: 1px solid #CCCCCC;
+        font-size: 16px;
+        float: left;
+        padding: 25px;
+        width: 555px;
+        box-shadow: 5px 5px 5px #474747;
+        -webkit-box-shadow: 5px 5px 5px #474747;
+        -moz-box-shadow: 5px 5px 5px #474747;
+        border-radius: 4px 4px 4px 4px;
+      }
+      .middle_message SPAN
+      {
+        float: right;
+        margin: 20px 20px 0 0;
+      }
+
+      #large_logo
+      {
+        width: 510px;
+        height: 200px;
+        float: left;
+        background: transparent url(/assets/large_logo.png) 0 0 no-repeat;
+        margin: 20px 0 0 20px;
+      }
+  </style>
+  <!--[if gte IE 9]>
+    <style type="text/css">
+      .gradient {
+         filter: none;
+      }
+    </style>
+  <![endif]-->
+
+<script type="text/javascript">
+    // if (top.location != self.location) {
+    //   // we're in an iframe (Facebook)
+    //     window.top.location.href="<%= ENV["WEBSITE_URL"] %>users/auth/facebook";
+
+    // }
+
+</script>
+
+  <%= render :partial => "analytics/mixpanel" %>
+  <script type="text/javascript">
+    $(document).ready(function()
+      {
+        var user_log_identity = "<%=user_log_identity%>";
+        mixpanel.identify(user_log_identity);
+        mixpanel.register({ distinct_id: user_log_identity });
+        mixpanel.name_tag(user_log_identity);
+      });
+  </script>
+</head>
+<body>
+  <div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    // init the FB JS SDK
+    FB.init({
+      appId      : '<%=ENV["FB_APP_ID"]%>', // App ID from the App Dashboard
+      channelUrl : '<%=ENV["ROOT_URL"] %>channel.html', // Channel File for x-domain communication
+      status     : true, // check the login status upon init?
+      cookie     : true
+    });
+
+    // Check if the current user is logged in
+     // and has authorized the app
+     FB.getLoginStatus(function(response) {
+       // Check the result of the user
+       if(response && response.status == 'connected') {
+         // The user is connected to Facebook
+         // and has authorized the app.
+         // Now personalize the user experience
+          <% if ENV["INVITE_ONLY"] != "TRUE" %>
+             <% if user_signed_in? %>
+               // window.top.location.href="<%= ENV["WEBSITE_URL"] %>me";
+             <% else %>
+               // window.top.location.href="<%= ENV["WEBSITE_URL"] %>users/auth/facebook/";
+             <% end %>
+          <% end %>
+       }
+
+      });
+  };
+
+       // Load the SDK Asynchronously
+       (function(d){
+         var js;
+         var id = 'facebook-jssdk';
+         var ref = d.getElementsByTagName('script')[0];
+         if (d.getElementById(id)) {return;}
+          js = d.createElement('script');
+          js.id = id;
+          js.async = true;
+          js.src = "//connect.facebook.net/en_US/all.js";
+          ref.parentNode.insertBefore(js, ref);
+        }(document));
+
+
+</script>
+   <div id="user_view">
+      <header>
+        <div id="inner_header" style="width: 145px;">
+            <%= render :partial => "layouts/logo" %>
+        </div>
+      </header>
+    <div id="outer_main_user_wrap">
+
+        <div class="main_wrap">
+          <% flash.each do |name, msg| %>
+            <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+              <a class="close" data-dismiss="alert">×</a>
+              <%= msg %>
+            </div>
+          <% end %>
+          <%= yield %>
+
+        </div>
+
+    </div>
+    <div class="fullwidth"><%= render :partial => "layouts/footer" %></div>
+  </div>
+
+
+
+</body>
+</html>

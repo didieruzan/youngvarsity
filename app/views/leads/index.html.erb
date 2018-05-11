@@ -1,0 +1,138 @@
+<style type="text/css">
+INPUT#lead
+{
+	font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    width: 600px;
+    float: left;
+}
+
+#check_btn
+{
+	float: left;
+	background: orange;
+	margin: 2px 0 0 20px;
+}
+
+#save_btn
+{
+	float: left;
+	background: green;
+	margin: 20px 0 0 20px;
+	display: none;
+}
+
+#clear_btn
+{
+	float: left;
+	background: grey;
+	margin: 20px 0 0 20px;
+}
+
+#check_result
+{
+	margin: 0 0 0 20px;
+	float: left;
+	background: transparent url('/assets/icon-status.png') -41px 0 no-repeat;
+	width: 41px;
+	height: 40px;
+	display: none;
+}
+
+#check_result.used
+{
+	background-position: -41px 0;
+	display: block;
+}
+
+#check_result.avail
+{
+	background-position: 0 0;
+	display: block;
+}
+
+#sentCount
+{
+	width: 100%;
+	float: left;
+	font-size: 24px;
+	margin: 80px 0 0 20px;
+}
+
+</style>
+
+
+<div style="padding: 20px;">
+	<input type="text" id="lead" name="lead" />
+	<div id="check_btn" class="btn">Check Lead</div>
+	<div id="check_result"></div>
+	<div style="float: left; width: 100%;">
+		<div id="save_btn" class="btn">Save Lead</div>
+		<div id="clear_btn" class="btn">Clear</div>
+	</div>
+	<br />
+	<br />
+	<div id="sentCount">Number of leads: <span><%=@leadCount%></span></div>
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function()
+  {
+
+	    $('#check_btn').click(function() {
+	    	$('#save_btn').hide();
+	    	var lead_url = $("#lead").val();
+			if (lead_url == '') return;
+	    	$.ajax({
+				url: "/check_lead",
+				type: 'POST',
+				async : false,
+				data: {lead_url: lead_url},
+				success: function(response) {
+					$('#clear_btn').show();
+					if (response.status === 'AVAILABLE') {
+						$('#save_btn').show();
+						$('#check_result').removeClass('used').addClass('avail');
+					} else {
+						$('#check_result').removeClass('avail').addClass('used');
+					}
+
+				}
+			});
+	    });
+
+ 		$('#save_btn').click(function() {
+	    	var lead_url = $("#lead").val();
+	    	$.ajax({
+				url: "/save_lead",
+				type: 'POST',
+				async : false,
+				data: {lead_url: lead_url},
+				success: function(response) {
+					$('#save_btn').hide();
+					if (response.status === 'SAVED') {
+						$("#lead").val("");
+						$('#check_result').removeClass('avail').removeClass('used');
+						$('#clear_btn').hide();
+						$('#sentCount SPAN').text(response.count);
+					} else {
+						alert(response.status);
+					}
+
+				}
+			});
+	    });
+		
+
+		$('#clear_btn').click(function() {
+			$("#lead").val("");
+			$('#save_btn').hide();
+			$('#check_result').removeClass('avail').removeClass('used');
+	    });
+
+  	});
+
+</script>

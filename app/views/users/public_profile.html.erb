@@ -1,0 +1,91 @@
+<% if !user_signed_in? %>
+  <div style="margin: 50px auto 0; width:1000px; " >
+    <%= render :partial => "dialogs/signup_dialog" %>
+  </div>
+<%end%>
+
+<div id="profileBoxWrapper">
+	<div class="nameRow">
+		<%=@person.firstname %> <%=@person.lastname %>
+	</div>
+	<% if @person.sport %>
+		<% case @person.sport
+			when 'football'
+				sportIcon = "25fe"
+			when 'baseball'
+				sportIcon = "e000"
+			when 'basketball'
+				sportIcon = "45"
+			when 'lacrosse'
+				sportIcon = "26f8"
+			when 'soccer'
+				sportIcon = "46"
+			when 'skateboard'
+				sportIcon = "e002"
+		 end %>
+
+		<div class="sportIcon" data-sporticon="&#x<%=sportIcon%>;"></div>
+	<% end %>
+	<div class="teamInfoRow">
+		<%=@person.field_pos %><%=" @#{@person.team_name}" if !@person.team_name.blank? %>
+	</div>
+	<% if !@person.school_name.blank? %>
+		<br />
+	<%end%>
+	<div class="schoolInfoRow">
+		<%=@person.school_name %>
+	</div>
+
+	<div class="bioRow">
+
+		<%=@person.bio.html_safe if @person.bio %>
+	</div>
+
+	<div style="float: left; width: 100%;">
+		<div style="width: 100%;">
+
+			<% if user_signed_in? && @person.id != current_user.id %>
+				<div class="moreBtn" id="connectUser">
+					<% if !!current_user.is_friend?(@person.id) %>
+						<span class="onHoverDisplay">&#xf05e;</span>
+            <span class="offHoverDisplay">&#xf05d;</span>
+            <%=link_to "Teammate", "/unfriend/#{@person.guid}" %>
+					<%else%>
+						<span class="onHoverDisplay">&#xf055;</span>
+            <span class="offHoverDisplay">&#xf055;</span>
+            <%=link_to "Add Teammate", "/teammate/#{@person.guid}"%>
+					<%end%>
+				</div>
+
+				<!-- <div class="moreBtn" id="moreOnUser">
+					<a href="/users/<%#=@person.guid %>"><span>b</span> more on <%#=@person.firstname %></a>
+				</div>
+
+
+				<%#=render 'follow_btn' if user_signed_in? && current_user != @person %>
+        -->
+			<%else%>
+				<!-- <div class="moreBtn" id="moreOnUser" onClick="alert('You need to be a Youngvarsity member,\nPlease Sign-up first!');">
+					<a href="#"><span>b</span> more on <%=@person.firstname %></a>
+				</div>
+
+				<div onClick="alert('You need to be a Youngvarsity member to follow another member,\nPlease Sign-up first!');" class="moreBtn" id="followUser">
+					<a href="#"><span>V</span> Follow!!!</a>
+				</div> -->
+			<%end%>
+
+		</div>
+		<!-- <div style="float: right; clear: both; text-align: right;">Following <%=@person.following.count %></div> -->
+		<div style="display: none; float: right; clear: both; text-align: right;"><%=pluralize(@person.followers.count, 'fan') %></div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+ $(function() {
+    $( "#profileBoxWrapper" ).draggable();
+  });
+
+</script>
+

@@ -1,0 +1,275 @@
+<style type="text/css">
+#controls_grid_wrap {
+  width: 100%;
+  float: left;
+  font-family: 'KlavikaRegular', 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  position: relative;
+}
+
+.control_cell_wrap {
+  float: left;
+  width: 266px;
+  height: 266px;
+  overflow: hidden;
+  margin: 40px 0 0 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+#start_profile_first {
+  position: absolute;
+  width: 245px;
+  height: 113px;
+  top: 10px;
+  left: 50px;
+  background: transparent url('/assets/start_profile_first.png') 0 0 no-repeat;
+  display: none;
+}
+
+#start_profile_first.down {
+  top: 18px;
+}
+
+.control_cell_wrap .cell_front {
+  float: left;
+  width: 266px;
+  height: 266px;
+  background: #4C4C44 url('/assets/control_icons.png') 0 0 no-repeat;
+  box-shadow: 0px 0px 15px #262626 inset;
+}
+
+.control_cell_wrap .cell_back {
+  float: left;
+  width: 266px;
+  height: 266px;
+  background: white;
+  transition:margin-top .3s ease-in-out .3s;
+  box-shadow: 0px 0px 15px #888888 inset;
+}
+
+.control_cell_wrap:hover .cell_back {margin-top:-266px}
+
+.control_cell_wrap.profile_cell .cell_front {
+  background-position: 7px 0
+}
+
+.control_cell_wrap.profile_cell .cell_back {
+  background: #ffffff url('/assets/profile_cell_bg.png') 0 0 no-repeat;
+}
+
+.control_cell_wrap.stats_cell .cell_front {
+  background-position: 0 -266px
+}
+
+.control_cell_wrap.stats_cell .cell_back {
+  background: #ffffff url('/assets/stats_cell_bg.png') 0 0 no-repeat;
+}
+
+
+.control_cell_wrap.qr_code_cell .cell_front {
+  background-position: 0 -532px
+}
+
+.control_cell_wrap.qr_code_cell .cell_back {
+  background: #ffffff url('/assets/qr_code_cell_bg.png') 0 0 no-repeat;
+}
+
+.control_cell_wrap.media_cell .cell_front {
+  background-position: 5px -798px
+}
+
+.control_cell_wrap.media_cell .cell_back {
+  background: #ffffff url('/assets/media_cell_bg.png') 0 0 no-repeat;
+}
+
+
+.control_cell_wrap.teammates_cell .cell_front {
+  background-position: 0 -1064px
+}
+
+.control_cell_wrap.teammates_cell .cell_back {
+  background: #ffffff url('/assets/teammates_cell_bg.png') 0 0 no-repeat;
+}
+
+
+
+.control_cell_wrap.wishlist_cell .cell_front {
+  background-position: 0 -1318px
+}
+
+.control_cell_wrap.wishlist_cell .cell_back {
+  background: #ffffff url('/assets/wishlist_cell_bg.png') 0 0 no-repeat;
+}
+
+.cell_front .cell_title {
+    color: #010101;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+    float: left;
+    margin: 25px 0 0 0;
+    font-family: 'KlavikaMedium', 'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.cell_front .cell_desc {
+    color: #010101;
+    font-size: 16px;
+    height: 42px;
+    margin: 200px 0 0 25px;
+    overflow: hidden;
+    text-align: center;
+    width: 226px;
+}
+
+.like_btn_wrap {
+  background: url("/assets/like_btn_bg.png") no-repeat scroll 10px 10px #4C4C44;
+  float: left;
+  height: 100px;
+  margin: 50px 0 0 40px;
+  padding: 85px 0 0 100px;
+  width: 777px;
+  box-shadow: 0px 0px 15px #262626 inset;
+  border-radius: 5px;
+}
+
+
+
+</style>
+
+<div id="controls_grid_wrap">
+  <div class="control_cell_wrap profile_cell">
+    <div class="cell_front">
+      <div class="cell_title">Update your Sports Profile</div>
+      <div class="cell_desc">Set your Personal Sports Identity. Cool photo, background, info</div>
+    </div>
+    <div class="cell_back"></div>
+  </div>
+
+  <div class="control_cell_wrap stats_cell">
+    <div class="cell_front">
+      <div class="cell_title">Store your Sports Stats</div>
+      <div class="cell_desc">Place all of your sports statistics in one place</div>
+    </div>
+    <div class="cell_back"></div>
+  </div>
+
+  <div class="control_cell_wrap qr_code_cell" title="Feature coming soon">
+    <div class="cell_front" >
+      <div class="cell_title">Collectibles of You</div>
+      <div class="cell_desc">Create your personal sports cards for you to share to fans and family</div>
+    </div>
+    <div class="cell_back"></div>
+  </div>
+
+  <div class="control_cell_wrap media_cell">
+    <div class="cell_front">
+      <div class="cell_title">Import Photos & Videos</div>
+      <div class="cell_desc">Import and showcase all of your sport photos and videos</div>
+    </div>
+    <div class="cell_back"></div>
+  </div>
+
+  <div class="control_cell_wrap teammates_cell">
+    <div class="cell_front">
+      <div class="cell_title">Connect with Teammates</div>
+      <div class="cell_desc">Connect with teammates. Chat privately in the locker room</div>
+    </div>
+    <div class="cell_back"></div>
+  </div>
+
+  <div class="control_cell_wrap wishlist_cell">
+    <div class="cell_front">
+      <div class="cell_title">Your Equipment Wishlist</div>
+      <div class="cell_desc">Select and share your favorite sports equipment wishlist</div>
+    </div>
+    <div class="cell_back"></div>
+  </div>
+
+  <div class="like_btn_wrap">
+    <div class="fb-like" data-href="http://www.facebook.com/pages/YoungVarsity/362661797175731" data-send="true" data-width="450" data-show-faces="true">
+  </div>
+  </div>
+
+  <div id="start_profile_first"></div>
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function()
+  {
+
+    $('.control_cell_wrap.profile_cell').click(function() {
+      waitAnim();
+      document.location.href="/profile";
+    });
+
+    <% if !current_user.is_profile_incomplete? %>
+    $('.control_cell_wrap.media_cell').click(function() {
+      waitAnim();
+      document.location.href="/media";
+    });
+
+    $('.control_cell_wrap.qr_code_cell').click(function() {
+      waitAnim();
+      document.location.href="/collectibles";
+    });
+
+
+
+    $('.control_cell_wrap.stats_cell').click(function() {
+      waitAnim();
+      document.location.href="/stats";
+    });
+
+    $('.control_cell_wrap.wishlist_cell').click(function() {
+      waitAnim();
+      document.location.href="/wishlist";
+    });
+
+    $('.control_cell_wrap.teammates_cell').click(function() {
+      waitAnim();
+      document.location.href="/teammates";
+    });
+    <% else %>
+      $('.control_cell_wrap.media_cell, .control_cell_wrap.stats_cell, .control_cell_wrap.wishlist_cell, .control_cell_wrap.teammates_cell,.control_cell_wrap.teammates_cell, .control_cell_wrap.qr_code_cell').click(function() {
+            bounceProfileFirst();
+      });
+    <% end %>
+
+  });
+
+  bounceProfileFirst = function() {
+    $("#start_profile_first").fadeIn();
+        setTimeout(function() {
+          $("#start_profile_first").toggleClass('down');
+           setTimeout(function() {
+              $("#start_profile_first").toggleClass('down');
+               setTimeout(function() {
+                $("#start_profile_first").toggleClass('down');
+                 setTimeout(function() {
+                  $("#start_profile_first").toggleClass('down');
+                      setTimeout(function() {
+                         $("#start_profile_first").toggleClass('down');
+                             setTimeout(function() {
+                                $("#start_profile_first").toggleClass('down');
+                                    setTimeout(function() {
+                                      $("#start_profile_first").toggleClass('down');
+                                       setTimeout(function() {
+                                        $("#start_profile_first").toggleClass('down');
+                                                setTimeout(function() { $("#start_profile_first").fadeOut(); }, 4000);
+                                              }, 300);
+                                          }, 300);
+                                  }, 300);
+                              }, 300);
+                        }, 300);
+                    }, 300);
+            }, 300);
+    }, 300);
+
+
+
+  }
+
+</script>

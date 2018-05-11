@@ -1,0 +1,23 @@
+<div id="mini_photo_src_selection">
+  <div style="width: 100%; line-height: 24px; text-align: center; float: left;">Import photo</div>
+  <div class="photo_import_wrap icon_facebook FBphotoSelect" class="ttip" data-form-id="upload_facebook_photo" title="Upload from facebook">
+    <i class="icon-facebook-sign icon-2x"></i>
+  </div>
+  <div class="photo_import_wrap icon_googleplus">
+    <i class="icon-google-plus-sign icon-2x"></i>
+  </div>
+
+  <div class="photo_import_wrap icon_upload">
+    <i class="icon-upload-alt icon-2x"></i>
+    <div style="margin-top: -26px"><%= render :partial => "upload_photo" %></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+ $(function() {
+    $( "#mini_photo_src_selection" ).draggable();
+  });
+
+
+</script>

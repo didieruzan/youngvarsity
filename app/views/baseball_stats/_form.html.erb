@@ -1,0 +1,111 @@
+<style type="text/css">
+.group_stats .box_sublabel
+{
+  width: 255px;
+}
+
+</style>
+
+<%= form_for(@baseball_stat) do |f| %>
+  <% if @baseball_stat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@baseball_stat.errors.count, "error") %> prohibited these Stats from being saved:</h2>
+
+      <ul>
+      <% @baseball_stat.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <br />
+  <div style="width: 100%; float: left;">
+
+    <div class="right">
+      <div class="btngrey btn-small" style="margin: 10px 20px 0 0;"><%= link_to 'Cancel', stats_path %> </div>
+      <%= f.submit :class => "btngreen", :value=> "Update Stats" %>
+
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="group_stats">
+      <div style="margin-bottom: 5px;" class="boxlabel">Title</div>
+      <div class="field">
+        <%= f.text_field :title, { :size=>"20", :autocomplete=>"off",  :autocorrect=>"off", :placeholder => "Season name or label" } %>
+      </div>
+
+      <div class="field" style="margin: 10px 0 -10px 0; text-align: left; float: right; width: auto;" >
+        <%= f.check_box :is_active %>
+        <label style="float: none;"> Public display</label>
+      </div>
+    </div>
+
+
+    <div class="group_stats">
+      <div class="boxlabel" style="width: 278px">General</div>
+
+      <div class="field">
+          <%= f.label "Games played" %>:
+          <div class="field_value"><%= f.number_field :games_played, { :size=>"3", :autocomplete=>"off",  :autocorrect=>"off" }  %>   </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="column">
+    <div class="group_stats">
+      <div class="box_sublabel">Batting</div>
+      <% @model_labels.each do |k, lbl| %>
+        <% if lbl[:section] == "Batting" %>
+          <div class="field">
+            <%= label_tag lbl[:label] %>
+            <div class="field_value"><%= f.number_field k %></div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div class="box_sublabel">Fielding</div>
+      <% @model_labels.each do |k, lbl| %>
+        <% if lbl[:section] == "Fielding" %>
+          <div class="field">
+            <%= label_tag lbl[:label] %>
+            <div class="field_value"><%= f.number_field k %></div>
+          </div>
+        <% end %>
+      <% end %>
+
+
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="group_stats">
+      <div class="box_sublabel">Base running</div>
+      <% @model_labels.each do |k, lbl| %>
+        <% if lbl[:section] == "Base running" %>
+          <div class="field">
+            <%= label_tag lbl[:label] %>
+            <div class="field_value"><%= f.number_field k %></div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div class="box_sublabel">Pitching</div>
+      <% @model_labels.each do |k, lbl| %>
+        <% if lbl[:section] == "Pitching" %>
+          <div class="field">
+            <%= label_tag lbl[:label] %>
+            <div class="field_value"><%= f.number_field k %></div>
+          </div>
+        <% end %>
+      <% end %>
+
+
+
+    </div>
+  </div>
+<% end %>
+

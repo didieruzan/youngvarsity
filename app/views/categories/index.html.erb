@@ -1,0 +1,31 @@
+<h1>Listing categories</h1>
+<div class="btn right"><%= link_to 'New Category', new_category_path %></div>
+<table width="100%" style="float: left; width: 100%;">
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @categories.each do |category| %>
+  <tr>
+    <td width="500" align="left">
+      <% if category.is_root? %>
+        <span style="font-weight: bold">
+      <% else %>
+        <span style="margin-left: 25px;">
+      <% end %>
+        <%= category.name %>
+      </span>
+    </td>
+    <td width="500" align="left">
+      <%= link_to 'Edit', edit_category_path(category) %>
+    </td>
+    <td width="500" align="left">
+      <%= link_to 'Destroy', category, confirm: 'Are you sure?', method: :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+

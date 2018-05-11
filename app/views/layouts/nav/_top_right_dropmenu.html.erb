@@ -1,0 +1,6 @@
+<% if (!person.nil? && !current_user.nil?) %>
+  <% if person.id == current_user.id %>
+    <!-- Select an image or video file on your computer. -->
+    <%= render :partial => "/layouts/nav/corner_controls" %>
+  <% end %>
+<% end %>

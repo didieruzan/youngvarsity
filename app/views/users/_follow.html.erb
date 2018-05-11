@@ -1,0 +1,4 @@
+<%= form_for(current_user.followships.build(:followed_id => @person.id)) do |f| %>
+	<div><%= f.hidden_field :followed_id %> </div>
+	<div><a href="javascript:document.forms['new_followship'].submit(); return false;"><span>V</span><%=f.submit "Follow" %></a></div>
+<% end %>

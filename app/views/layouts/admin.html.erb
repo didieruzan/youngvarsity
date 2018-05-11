@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YoungVarsity</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="theme_bg">
+    <header>
+        <div id="inner_header">
+          <div id="logo"></div>
+          <div id="signup_profile">
+              <% if user_signed_in? %>
+                <%= render :partial => "layouts/nav/profile_image_small" %>
+              <% else %>
+                  <%= link_to "Login", new_user_session_path %> |
+                  <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+            <% end %>
+          </div>
+        </div>
+      </header>
+    <div id="outer_main_wrap">
+        <div id="main_wrap">
+          <% flash.each do |name, msg| %>
+            <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+              <a class="close" data-dismiss="alert">×</a>
+              <%= msg %>
+            </div>
+          <% end %>
+          <div id="inner_wrap">
+            <%= yield %>
+           </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>

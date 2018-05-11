@@ -1,0 +1,8 @@
+var comment = '<div class="grid_photo_comment_row" id="comment_<%= @comment.guid%>"><div class="avatar_round_sm"><%= link_to image_tag(@comment.user.getAvatarThumb) , "/users/#{@comment.user.guid}" %></div><div class="grid_photo_comment"><span><%=@comment.user.firstname%>:</span> <%=escape_javascript(@comment.post) %></div><div class="comment_delete"><%= link_to image_tag("blank.png", :border => 0, :alt=>"Remove"), "/comment/delete/#{@comment.guid}", remote: true %></div></div>';
+
+$("#gridphoto_<%=@comment.photo.guid%> .grid_item_comment").val("");
+$("#gridphoto_<%=@comment.photo.guid%> .comment_input_row").hide();
+
+$("#gridphoto_<%=@comment.photo.guid%> .grid_photo_comments").prepend(comment);
+$(".middle_grid").masonry( 'reload' );
+

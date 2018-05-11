@@ -1,0 +1,136 @@
+// Place all the styles related to the football_stats controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+th.vertical {
+  -moz-transform: rotate(-90.0deg);  /* FF3.5+ */
+  -o-transform: rotate(-90.0deg);  /* Opera 10.5 */
+  -webkit-transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
+  filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=-0.900);  /* IE6,IE7 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=-0.900)"; /* IE8 */
+}
+
+#stats_list TH.th_title
+{
+  font-size: 24px;
+  text-align: left;
+  text-indent: 30px;
+}
+
+.stats_table
+{
+  margin: 15px 0;
+  float: left;
+  margin: 15px 0;
+  width: 100%;
+}
+
+#stats_list TH.add_stats_th DIV {
+  margin: 0 10px;
+}
+
+.group_stats {
+  background-color: white;
+  border: 1px solid #CCCCCC;
+  border-radius: 10px 10px 10px 10px;
+  float: left;
+  margin: 10px;
+  padding: 10px;
+}
+
+.group_stats .error-text {
+  display: none;
+}
+
+.group_stats .boxlabel
+{
+  background-color: #706F6F;
+  border-bottom: 8px solid #BFBFBF;
+  border-top: 7px solid #BFBFBF;
+  color: #FBFBFB;
+  font-weight: bold;
+  line-height: 22px;
+  text-align: center;
+
+}
+
+.group_stats .box_sublabel
+{
+    background-color: #65C95C;
+    border-bottom: 4px solid #BFBFBF;
+    border-top: 4px solid #BFBFBF;
+    color: #FBFBFB;
+    float: left;
+    font-weight: bold;
+    line-height: 22px;
+    margin-left: 13px;
+    margin-top: 10px;
+    text-align: center;
+    width: 210px;
+}
+
+
+.group_stats input[type="number"] {
+  max-width: 40px;
+  text-align: center;
+  float: left;
+  margin: 0 0 0 0;
+}
+
+.group_stats LABEL, .field_with_errors {
+  float: left;
+}
+
+.group_stats .field {
+  float: left;
+  margin: 5px 0 0;
+  width: 100%;
+}
+
+.group_stats .field_value
+{
+  float: right;
+}
+
+
+.field_with_errors {
+  color: #C41619;
+}
+
+
+
+.column {
+  float: left;
+  width: 320px;
+}
+
+#error_explanation {
+  float: left;
+  margin: 20px 0 0 50px;
+  padding: 20px;
+  border: 3px solid red;
+  clear: left;
+  background-color: #F9B848;
+}
+
+
+TABLE#stats_list
+{
+  min-width: 99%;
+  float: left;
+
+}
+
+#stats_list TD, #stats_list TH
+{
+  border: 1px solid #bfbfbf;
+  background-color: white;
+  padding: 10px 3px;
+}
+
+ #stats_list TH {
+  background-color: #3D3C3A;
+  color: #bfbfbf;
+ font-size: 10px;
+ }

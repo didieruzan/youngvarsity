@@ -1,0 +1,62 @@
+var photo_content;
+ $('#photo_edit_dialog .photo_dialog_img_wrap').empty();
+<% if @is_owner %>
+  photo_content = '<img src="<%=@photo.large1024 %>" />';
+  $('#photo_edit_dialog .photo_dialog_img_wrap').append('<div class="dialog_intro">Zoom & Drag the image to adjust.</div><div style="float: right; margin: 5px 10px;" id="crop_img_btn" class="btn disabled">Apply Crop</div>');
+  $('#photo_edit_dialog .photo_dialog_img_wrap').append(photo_content);
+
+      imgCropData = {};
+      imgCropData['guid'] = '<%=@photo.guid %>';
+        $('#photo_edit_dialog .photo_dialog_img_wrap img').jrac({
+          'crop_width': 800,
+          'crop_height': 400,
+          'crop_x': 0,
+          'crop_y': 0,
+          'image_width': 800,
+          'viewport_onload': function() {
+            var $viewport = this;
+            $viewport.height($viewport.$image.height());
+            $viewport.crop_width = $viewport.$image.width();
+            $viewport.crop_height = $viewport.$image.height();
+
+            $viewport.observator.register('jrac_crop_x', $('input#cropx'), function(event_name, element, value) {
+              imgCropData['crop_x'] = value;
+            });
+
+            $viewport.observator.register('jrac_crop_y', $('input#cropy'), function(event_name, element, value) {
+              imgCropData['crop_y'] = value;
+            });
+
+            $viewport.observator.register('jrac_crop_width', $('input#cropw'), function(event_name, element, value) {
+              imgCropData['crop_width'] = value;
+            });
+
+            $viewport.observator.register('jrac_crop_height', $('input#croph'), function(event_name, element, value) {
+              imgCropData['crop_height'] = value;
+            });
+
+            $viewport.observator.register('jrac_image_width', $('input#imgw'), function(event_name, element, value) {
+              imgCropData['image_width'] = value;
+            });
+
+            $viewport.observator.register('jrac_image_height', $('input#imgh'), function(event_name, element, value) {
+              imgCropData['image_height'] = value;
+            });
+          }
+
+        })
+        // React on all viewport events.
+        .bind('jrac_events', function(event, $viewport) {
+          if ($viewport.observator.crop_consistent()) {
+            $("#photo_edit_dialog #crop_img_btn").removeClass('disabled').addClass('enabled');
+          } else {
+            $("#photo_edit_dialog #crop_img_btn").addClass('disabled').removeClass('enabled');
+          }
+          console.log(imgCropData);
+        });
+
+<% else %>
+ $('#photo_edit_dialog .photo_dialog_img_wrap').append(photo_content);
+<% end %>
+
+

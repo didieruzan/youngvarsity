@@ -1,0 +1,9 @@
+<div id="product_img_upload_dlg">
+  <div id="product_img_upload_wrap">
+    <%= form_for ( Prodimage.new ), :remote => true, :html => { :multipart => true } do |f| %>
+        <%= f.file_field (:image) %>
+        <input type="hidden" name="product_id" id="product_id" value="<%= @product.id %>">
+    <% end %>
+    <p></p>
+  </div>
+</div>

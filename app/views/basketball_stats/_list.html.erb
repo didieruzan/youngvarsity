@@ -1,0 +1,20 @@
+<table border="0" id="stats_list" >
+  <tr>
+    <th class="th_title">Basketball Stats</th>
+    <th width="77">Public</th>
+    <th width="77"></th>
+    <th class="add_stats_th" width="165"><%= link_to '<i class="icon-plus icon-white"></i> Add stats'.html_safe, new_basketball_stat_path, class: "btn btn-warning btn-large" %>
+</th>
+  </tr>
+
+<% @basketball_stats.each do |basketball_stat| %>
+  <tr>
+    <td><%= basketball_stat.title %></td>
+    <td align="center"><%= basketball_stat.is_active  ? "Yes" : "No" %></td>
+
+    <td align="middle"><%= link_to '<i class="icon-edit icon-white"></i> Edit'.html_safe, edit_basketball_stat_path(basketball_stat), class: "btn btn-info btn-small" %></td>
+    <td width="118" align="middle"><%= link_to '<i class="icon-trash icon-white"></i> Delete'.html_safe, basketball_stat, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-small" %></td>
+  </tr>
+<% end %>
+</table>
+

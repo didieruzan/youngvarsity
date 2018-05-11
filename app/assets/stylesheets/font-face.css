@@ -1,0 +1,96 @@
+ @font-face {
+ 	font-family:"Marcelle";src:url("/assets/marcelle_script.eot?")
+ 	format("eot"),url("/assets/marcelle_script.woff")
+ 	format("woff"),url("/assets/marcelle_script.ttf")
+ 	format("truetype"),url("/assets/marcelle_script.svg#MarcelleScript")
+ 	format("svg");font-weight:normal;font-style:normal;
+ }
+
+/*@font-face {
+    font-family: 'lobster_1.3regular';
+    src: url('/assets/lobster_1.3-webfont.eot');
+    src: url('/assets/lobster_1.3-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/lobster_1.3-webfont.woff') format('woff'),
+         url('/assets/lobster_1.3-webfont.ttf') format('truetype'),
+         url('/assets/lobster_1.3-webfont.svg#lobster_1.3regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+*/
+/*
+@font-face {
+    font-family: 'jerseylettersregular';
+    src: url('/assets/jerseyletters-webfont.eot');
+    src: url('/assets/jerseyletters-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/jerseyletters-webfont.woff') format('woff'),
+         url('/assets/jerseyletters-webfont.ttf') format('truetype'),
+         url('/assets/jerseyletters-webfont.svg#jerseylettersregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}*/
+
+@font-face {
+    font-family: 'icomoon';
+    src:url('/assets/icomoon.eot');
+    src:url('/assets/icomoon.eot?#iefix') format('embedded-opentype'),
+        url('/assets/icomoon.svg#icomoon') format('svg'),
+        url('/assets/icomoon.woff') format('woff'),
+        url('/assets/icomoon.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'icomoon2';
+    src:url('/assets/icomoon2.eot');
+    src:url('/assets/icomoon2.eot?#iefix') format('embedded-opentype'),
+        url('/assets/icomoon2.svg#icomoon2') format('svg'),
+        url('/assets/icomoon2.woff') format('woff'),
+        url('/assets/icomoon2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'icomoon3';
+    src:url('/assets/icomoon3.eot');
+    src:url('/assets/icomoon3.eot?#iefix') format('embedded-opentype'),
+        url('/assets/icomoon3.svg#icomoon3') format('svg'),
+        url('/assets/icomoon3.woff') format('woff'),
+        url('/assets/icomoon3.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+  font-family:"KlavikaRegular";
+  src: url("/assets/fonts/KlavikaWebBasicRegular.eot?") format("eot"),
+       url("/assets/fonts/KlavikaWebBasicRegular.woff") format("woff"),
+       url("/assets/fonts/Klavika-Regular.ttf")  format("truetype");
+       font-weight:normal;
+       font-style:normal;
+ }
+
+
+ @font-face {
+  font-family:"KlavikaLight";
+  src: url("/assets/fonts/KlavikaWebBasicLight.eot?") format("eot"),
+       url("/assets/fonts/KlavikaWebBasicLight.woff") format("woff"),
+       url("/assets/fonts/Klavika-Light.ttf")  format("truetype");
+       font-weight:normal;
+       font-style:normal;
+ }
+
+ @font-face {
+  font-family:"KlavikaMedium";
+  src: url("/assets/fonts/KlavikaWebBasicMedium.eot?") format("eot"),
+       url("/assets/fonts/KlavikaWebBasicMedium.woff") format("woff"),
+       url("/assets/fonts/Klavika-Medium.ttf")  format("truetype");
+       font-weight:normal;
+       font-style:normal;
+ }
+

@@ -1,0 +1,14 @@
+  <ul class="<%='secondary_cat' if !rootlevel %>" >
+    <% categories.each do |category| %>
+      <li class="<%='selected' if ( category.id == params[:category].to_i ) %>">
+        <label>
+        <%= link_to_unless_current category.name, prodsgrid_path(:prange => params[:prange], :category => category.id) %>
+        </label>
+        <% if ( category.id == params[:category].to_i ) || (category.descendant_ids.include?(params[:category].to_i) )  %>
+          <%=( render 'categories_nav', { categories: category.children, rootlevel: false } ) if category.children.present? %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+

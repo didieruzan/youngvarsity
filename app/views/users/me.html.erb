@@ -1,0 +1,83 @@
+<style type="text/css">
+  .timestamp
+  {
+    line-height: 30px;
+  }
+<% if !@photos.any? %>
+  #main_wrap {
+      background-image: url('/assets/media_bg_placeholder.png');
+  }
+  #tooltip_content_corner
+  {
+    display: block;
+  }
+
+<%end%>
+</style>
+
+
+<script id="template-upload" type="text/x-tmpl">
+	<div class="upload">
+	  {%=o.name%}
+	  <div class="progress progress-striped active"><div class="bar bar-danger" style="width: 0%"></div></div>
+	</div>
+</script>
+
+<div class="middle_grid">
+  <div id="tooltip_content_corner">
+    This is your media page. We filled it with some sample content to give you an idea of how it will look, once you add content. Get started by clicking above on
+  </div>
+	<%= render :partial => "profile_img", :object => @person %>
+	<% if @photos.any? %>
+    <% @userPhotoCount ||= @photos.count %>
+    <% adPos = rand(2...@userPhotoCount) if @userPhotoCount > 6 # then enough photos to display an ad %>
+		<% @photos.each_with_index do |p, counter|%>
+			<% if !p.medium.blank? %>
+				<div class="grid_item" id="gridphoto_<%=p.guid%>">
+					<div class="photo_wrap">
+						<%if p.user.id == current_user.id %>
+							<div class="rem_photo">
+								<%= link_to image_tag("blank.png", :alt=>"Remove"), "/photo/delete/#{p.guid}", remote: true %>
+							</div>
+						<%end%>
+						<img alt="" src="<%=p.medium%>"/>
+					</div>
+          <div contenteditable spellcheck="false" class="photo_desc" style="<%="display: none;" if p.description.blank? %>"><%=p.description%></div>
+          <div class="add_edit_caption ttip" title="Add/edit photo caption"></div>
+          <div class="photo_crop ttip" title="Resize and Crop photo"></div>
+          <div class="photo_share ttip" title="Share Photo">
+              <div class="share_btn_wrap">
+                <div class="btn blue-fb">SHARE</div>
+              </div>
+          </div>
+          <div class="comment_ico ttip" title="Add a comment"></div>
+					<div class="timestamp">
+						<%= time_ago_in_words(p.created_at) %> ago.
+					</div>
+          <%= render :partial => "comments", :locals => { :p => p } %>
+				</div>
+			<%end%>
+      <%= render :partial => "ads/video_ads", :locals => { :sports => @person.sport }  if !adPos.nil? && counter===adPos %>
+		<% end%>
+
+		<%#= will_paginate @photos%>
+	<% end %>
+
+  <%= render :partial => "dialogs/upload_progressbar" %>
+
+</div>
+<%= render :partial => "photo_dlg" %>
+<%= render :partial => "photo_edit_dlg" %>
+<%#= render :partial => "photo_import_src_select" %>
+<% if current_user.id == @person.id %>
+  <%= render :partial => "mini_photo_import_src_select" %>
+  <%= render :partial => "dialogs/fb_photo_select_dialog" %>
+<% end %>
+
+<%= render :partial => "googleplus_photo_src_dlg" %>
+<%= render :partial => "picasa_photo_src_dlg" %>
+<%= render :partial => "photo_import_photo_select" %>
+  <%=form_tag import_from_facebook_path, :method => :post,  :remote => true, :class => "upload_facebook_photo" do %>
+    <input type="hidden" class="remote_image_url_field" name="remote_image_url_field" />
+  <% end %>
+

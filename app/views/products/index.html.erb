@@ -1,0 +1,36 @@
+<h1>Listing products</h1>
+<div class="btn right"><%= link_to 'New Product', new_product_path %></div>
+<br />
+<table cellpadding="10" cellspacing="10" style="float: left; width: 100%;">
+  <tr>
+    <th>Sku</th>
+    <th>Manufacturer</th>
+    <th>Title</th>
+    <!--<th>Description short</th>
+    <th>Description</th>-->
+    <th>Price</th>
+    <th>Image</th>
+   <!-- <th>Url</th>-->
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @products.each do |product| %>
+  <tr>
+    <td><%= product.sku %></td>
+    <td><%= product.manufacturer %></td>
+    <td><%= product.title %></td>
+    <!--<td><%#= product.description_short %></td>
+    <td><%#= product.description %></td>-->
+    <td>$<%= product.price %></td>
+    <td><%= image_tag product.prodimages.first.thumb if product.prodimages.any? %></td>
+    <!--<td><%#= product.url %></td>-->
+    <td><%= link_to 'Show', product %></td>
+    <td><%= link_to 'Edit', edit_product_path(product) %></td>
+    <td><%= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+

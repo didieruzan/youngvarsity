@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript">
+    var token = null;
+    <% if user_signed_in? %>
+      token = "<%=current_user.guid%>"
+    <% end %>
+  </script>
+  <title>YoungVarsity | Social playground for young athletes</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <meta property="fb:admins" content="1470040852"/>
+  <meta property="fb:app_id" content="<%=ENV["FB_APP_ID"]%>"/>
+  <script type="text/javascript" src="/js/jquery.flexslider-min.js"></script>
+  <%= csrf_meta_tags %>
+
+
+<style type="text/css">
+
+body
+{
+  background: url("/assets/grass_bg.jpg") repeat scroll 0 0 transparent;
+}
+
+
+#main_wrap
+{
+  background: url("/assets/all_sports_bg.png") no-repeat scroll center top transparent;
+  min-height: 860px;
+}
+
+
+#inner_wrap
+{
+  padding: 0;
+  float: none;
+  margin: 0 auto;
+  min-height: 860px;
+  width: 800px;
+  background: #f4f4f4;
+}
+
+#main_wrap
+{
+  min-height: auto;
+}
+
+#outer_main_wrap
+{
+  width: 100%;
+  float: left;
+  background: transparent;
+  margin: 0;
+}
+
+.preloadImg div
+{
+  visibility: hidden;
+  width: 1px;
+  height: 1px;
+  float: left;
+}
+
+.intro_slides {
+  overflow: hidden;
+}
+
+.intro_slides UL {
+  list-style: none outside none;
+
+}
+
+.flex-direction-nav, .flex-control-nav {
+  display: none;
+}
+
+.flex-control-nav {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+.flex-control-nav li {
+    display: inline-block;
+    margin: 0 6px;
+}
+
+.flex-viewport {
+  width: 647px;
+  height: 498px;
+  float: left;
+}
+
+#landpage_col_left, #landpage_col_right {
+  width: 100%;
+  height: 280px;
+  float: left;
+  background: transparent url('/assets/fb_landing_logo.jpg') no-repeat 0 0;
+}
+
+#landpage_col_right {
+  background: transparent url('/assets/landing_top_left.jpg') no-repeat center center;
+}
+
+#landpage_center {
+  width: 675px;
+  height: 525px;
+  float: left;
+  background: transparent url('/assets/landing_slides_bg.jpg') no-repeat center center;
+  margin: 0 0 0 60px;
+}
+
+.intro_slides {
+  margin: 23px 0 0 18px;
+}
+
+
+</style>
+
+<%= render :partial => "analytics/mixpanel" %>
+<script type="text/javascript">
+  $(document).ready(function()
+    {
+      var user_log_identity = "<%=user_log_identity%>";
+      mixpanel.identify(user_log_identity);
+      mixpanel.register({ distinct_id: user_log_identity });
+    });
+
+
+// Can also be used with
+$(document).ready(function()
+  {
+    var signup_clicked = login_clicked = false;
+    $(".signup_btn").click(function() {
+      if (signup_clicked === true) return;
+      waitAnim();
+      signup_clicked = true;
+      mixpanel.track('FB-page SIGN UP');
+      window.top.location.href="<%= ENV["WEBSITE_URL"] %>users/auth/facebook/?fb_source=ad";
+    });
+
+    $(".login_btn").click(function() {
+      if (login_clicked === true) return;
+      waitAnim();
+      login_clicked = true;
+      mixpanel.track('FB-page login');
+      window.top.location.href="<%= ENV["WEBSITE_URL"] %>users/auth/facebook/?fb_source=ad&login=1";
+
+    });
+
+
+  });
+$(window).load(function() {
+  $('.intro_slides').flexslider({
+    animation: "slide",
+    manualControls: "slide_anchor"
+  });
+});
+</script>
+</head>
+<body>
+  <%= render :partial => "layouts/fbinit"  %>
+    <div id="outer_main_wrap">
+        <div id="main_wrap">
+          <div id="inner_wrap">
+            <%= yield %>
+           </div>
+        </div>
+        <div class="alpha public_fanpage fullwidth"><%= render :partial => "layouts/footer" %></div>
+    </div>
+    <%= render :partial => "layouts/wait_anim" %>
+    <% if Rails.env.production? %>
+      <%= render :partial => "analytics/analytics" %>
+    <%end%>
+</body>
+
+
+</html>

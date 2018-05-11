@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Sku:</b>
+  <%= @product.sku %>
+</p>
+
+<p>
+  <b>Manufacturer:</b>
+  <%= @product.manufacturer.html_safe %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @product.title.html_safe %>
+</p>
+
+<p>
+  <b>Description short:</b>
+  <%= @product.description_short.html_safe %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @product.description.html_safe %>
+</p>
+
+<p>
+  <b>Price:</b>
+  $ <%= @product.price %>
+</p>
+
+<p>
+  <b>Url:</b>
+ <%= link_to "More info", @product.url %>
+</p>
+
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>

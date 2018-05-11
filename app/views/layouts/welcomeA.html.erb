@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript">
+    var token = null;
+    <% if user_signed_in? %>
+      token = "<%=current_user.guid%>"
+    <% end %>
+  </script>
+  <title>YoungVarsity | Social playground for young athletes</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <meta property="fb:admins" content="1470040852"/>
+  <meta property="fb:app_id" content="<%=ENV["FB_APP_ID"]%>"/>
+
+  <%= csrf_meta_tags %>
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,300,500|Ubuntu+Condensed' rel='stylesheet' type='text/css'>
+  <script type="text/javascript">
+    $(document).ready(function()
+    {
+      var user_log_identity = "<%=user_log_identity%>";
+      if (user_log_identity != false) {
+        mixpanel.identify(user_log_identity);
+        mixpanel.register({ distinct_id: user_log_identity });
+      }
+    });
+  </script>
+  <%= render :partial => "analytics/mixpanel" %>
+  <script type="text/javascript">
+
+
+    var debug_user = false;
+    <% if cookies[:yv_debug].present? %>
+      debug_user = true;
+    <% end %>
+
+    var signup_clicked = login_clicked = false;
+    $(document).ready(function()
+    {
+      mixpanel.track_links("#signup_profile_preview","FB-page SIGN UP - sample profile dlg");
+      mixpanel.track_links("#signup_main","FB-page SIGN UP - main");
+
+
+      // $(".login_btn").click(function() {
+      //   if (login_clicked === true) return;
+      //   login_clicked = true;
+      //   mixpanel.track('FB-page login');
+      //   waitAnim();
+      //   window.top.location.href="<%= ENV["WEBSITE_URL"] %>users/auth/facebook/?fb_source=ad&login=1";
+      // });
+
+    //   if (top.location == self.location) {
+    //   // we're in FB
+    //   $('header').show();
+    //   $('#member_logo').hide();
+    // } else {
+    //   $('header').hide();
+    //   $('#member_logo').show();
+    // }
+
+    // $('#submit_btn').click(function() {
+    //      $(".email_error").hide();
+    //     var hasError = false;
+    //     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+
+    //     var emailaddressVal = $("#invite_by_email").val();
+    //     if(emailaddressVal == '') {
+    //         $("#submit_btn").after('<span class="email_error">Invalid email!</span>');
+    //         hasError = true;
+    //     }
+
+    //     else if(!emailReg.test(emailaddressVal)) {
+    //         $("#submit_btn").after('<span class="email_error">Invalid email!</span>');
+    //         hasError = true;
+    //     }
+
+    //     if(hasError == true) { return false; }
+
+    //     $.ajax({
+    //       url: "/save_invite_request",
+    //       type: 'POST',
+    //       async : false,
+    //       data: {lead_email: emailaddressVal},
+    //       success: function(response) {
+    //         $('#signup_dialog').dialog('close');
+    //         alert("Thank you for your Invite request!\nWe'll do our best to send you one ASAP.");
+    //       }
+    //     });
+
+
+    // });
+
+
+      var profile_preview_dialog = $('#profile_dialog').dialog({
+          width:1020,
+          height: 670,
+          position:['middle',96],
+//          show: { effect: 'drop', direction: "up" },
+          resizable: false,
+          dialogClass: "profile_preview_dialog_ui",
+          autoOpen: false,
+          modal: false,
+          draggable: false,
+          closeOnEscape: true,
+          open: function(){
+            jQuery('.ui-widget-overlay, .close_dlg').bind('click',function(){
+                jQuery('#profile_dialog').dialog('close');
+            })
+          }
+        });
+
+        // $('#signup_dialog').dialog({
+        //   width:580,
+        //   height: 300,
+        //   position:['middle',250],
+        //   resizable: false,
+        //   dialogClass: "signup_dialog_ui",
+        //   close: function(event, ui) { },
+        //   autoOpen: false,
+        //   modal: true,
+        //   draggable: false,
+        //   closeOnEscape: true,
+        //   open: function(){
+        //     jQuery('.ui-widget-overlay').bind('click',function(){
+        //         jQuery('#signup_dialog').dialog('close');
+        //     })
+        //   }
+        // });
+
+      // $('.invite_req').click(function(evt) {
+      //     evt.preventDefault();
+      //     var url = $('.invite_req a').attr("href");
+      //    // if (!debug_user) mixpanel.track("INVITE_req");
+      //     setTimeout(function() {
+      //         document.location.href = url;
+      //     }, 700);
+
+      // });
+
+      $('.previewThumb').click(function() {
+      //   if (!debug_user) mixpanel.track("PROFILE ANY", { "profile": $(this).data('track') } );
+      //   if (!debug_user) mixpanel.track("PROFILE @ "+$(this).data('track') );
+          var prof_id = $(this).attr("id");
+          mixpanel.track("fb_landing - Profile_preview@"+prof_id);
+          previewThumb(prof_id);
+
+      });
+
+      // $('.signup_btn.main_panel').click(function() {
+      //   // if (!debug_user) mixpanel.track("SIGNUP @ main");
+      //     <% unless !@inviteToken.nil? %>
+      //       $('#signup_dialog').dialog('open');
+      //     <%end%>
+      // });
+
+      // $('.signup_btn.profile_panel').click(function() {
+      //   // if (!debug_user) mixpanel.track("SIGNUP @ profile");
+      //    <% unless !@inviteToken.nil? %>
+      //       $('#signup_dialog').dialog('open');
+      //    <%end%>
+      // });
+
+  });
+
+  gotoRegister = function() {
+
+  }
+
+  previewThumb = function(this_id) {
+      $('#profile_dialog .profile_preview').css('background-image', 'url(/assets/'+$('#'+this_id).data('image')+')' );
+      $('#profile_dialog').dialog('open');
+  }
+  </script>
+
+<style type="text/css">
+
+body
+{
+  background: #C9E0DD;
+}
+
+#footer_grass
+{
+  width: 100%;
+  height: 96px;
+  background: #effcfb url(/assets/footer_grass.jpg) 0 0 repeat-x;
+  float: left;
+}
+
+
+#main_wrap
+{
+  background:  #DCEDEB;
+}
+
+.previewThumb
+{
+  width: 285px;
+  height: 192px;
+  padding: 10px;
+  float: left;
+   box-shadow: 7px 7px 0 #98A6B3;
+    -webkit-box-shadow: 7px 7px 0 #98A6B3;
+    -moz-box-shadow: 7px 7px 0 #98A6B3;
+    margin: 0 24px 39px 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid #98A6B3;
+    transition:  0.3s;
+
+}
+
+.previewThumb:hover
+{
+  margin: 1px 23px 38px 1px;
+  box-shadow: 5px 5px 0 #606F7C;
+  -webkit-box-shadow: 5px 5px 0 #606F7C;
+  -moz-box-shadow: 5px 5px 0 #606F7C;
+}
+
+.previewThumb div
+{
+  width: 100%;
+  height: 100%;
+  background: transparent url('/assets/preview_hover.png') center 75% no-repeat;
+  visibility: hidden;
+  transition:  0.3s;
+}
+
+.previewThumb:hover > div
+{
+  visibility: visible;
+}
+
+
+#logo_large_wrap
+{
+  width: 100%;
+  height: 95px;
+  float: left;
+  background: #C9E0DD;
+  border-bottom: 1px solid #98A6B3;
+}
+
+.footer_landingPage
+{
+  width: 100%;
+  height: 95px;
+  float: left;
+  background: #C9E0DD;
+  border-top: 1px solid #98A6B3;
+}
+
+#logo_large
+{
+  background: transparent url(/assets/logo_large.png) 0 0 no-repeat;
+  width: 290px;
+  height: 73px;
+  margin: 10px auto;
+  color: #B51520;
+  text-align: right;
+}
+
+#football1
+{
+  background-image: url(/assets/preview_football1.jpg);
+}
+
+#football2
+{
+  background-image: url(/assets/preview_football2.jpg);
+}
+
+#baseball1
+{
+  background-image: url(/assets/preview_baseball1.jpg);
+}
+
+#baseball2
+{
+  background-image: url(/assets/preview_baseball2.jpg);
+}
+
+#basketball
+{
+  background-image: url(/assets/preview_basketball.jpg);
+}
+
+#lacrosse
+{
+  background-image: url(/assets/preview_lacrosse.jpg);
+}
+
+#inner_wrap
+{
+  padding-left: 5px;
+  float: none;
+  margin: 20px auto 0;
+  min-height: 630px;
+}
+
+#main_wrap
+{
+  min-height: auto;
+}
+
+#outer_main_wrap
+{
+  width: 100%;
+  float: left;
+  background: #DCEDEB;
+  margin: 0;
+}
+
+#landing_page_preview
+{
+  border-top: 5px solid #98A6B3;
+  float: left;
+}
+
+.welcome_page_grid h1, .welcome_page_grid h2, .welcome_page_grid h3, #profile_dialog h3, #comment_wrapper h2
+{
+  font-family: 'Ubuntu Condensed', sans-serif;
+  float: left;
+}
+
+.welcome_page_grid h3
+{
+  clear: left;
+}
+
+#profile_dialog h3
+{
+  line-height: 68px;
+}
+
+#landing_page_preview h2, #comment_wrapper h2
+{
+  font-family: 'Ubuntu Condensed', sans-serif;
+  line-height: 48px;
+  font-weight: 400;
+  font-size: 24px;
+  width: 100%;
+  color: #D66A4D;
+}
+
+h1
+{
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 24px;
+    text-transform: uppercase;
+}
+
+h3
+{
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 48px;
+    text-transform: uppercase;
+}
+
+header {
+  display: none;
+}
+
+.signup_btn
+{
+  float: right !important;
+  margin-bottom: 5px;
+  outline: none;
+}
+
+
+.profile_preview_dialog_ui .ui-dialog-titlebar, .signup_dialog_ui .ui-dialog-titlebar
+{
+  display: none;
+}
+
+#profile_dialog
+{
+  width: 985px;
+  min-height: 581px;
+}
+
+#profile_dialog .profile_preview
+{
+  width: 985px;
+  height: 581px;
+  float: left;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 5px;
+}
+
+.signup_dialog_ui.ui-corner-all, .profile_preview_dialog_ui.ui-corner-all
+{
+    border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-color: #DCEDE9
+}
+
+.signup_dialog_ui.ui-widget-content, #profile_preview_dialog_ui.ui-widget-content
+{
+  border-color: #C9E0DD;
+}
+
+.profile_preview_footer
+{
+  float: left;
+  width: 100%;
+}
+
+.close_dlg
+{
+    cursor: pointer;
+    float: right;
+    line-height: 68px;
+    margin-right: 15px;
+    text-decoration: underline;
+    color: blue;
+}
+
+.preloadImg div
+{
+  visibility: hidden;
+  width: 1px;
+  height: 1px;
+  float: left;
+}
+
+.preload1
+{
+
+  background-image: url(/assets/preview_football1_large.jpg);
+}
+
+.preload2
+{
+  background-image: url(/assets/preview_football2_large.jpg);
+}
+
+.preload3
+{
+  background-image: url(/assets/preview_baseball1_large.jpg);
+}
+
+.preload4
+{
+  background-image: url(/assets/preview_baseball2_large.jpg);
+}
+
+.preload5
+{
+  background-image: url(/assets/preview_basketball_large.jpg);
+}
+
+.preload6
+{
+  background-image: url(/assets/preview_lacrosse_large.jpg);
+}
+
+#comment_wrapper
+{
+  float: left;
+  width: 100%;
+  min-height: 200px;
+}
+
+#comment_wrapper h2
+{
+  color: #D66A4D;
+}
+
+#comment_wrapper .fb-comments
+{
+  float: left;
+  margin-left: 100px;
+}
+
+
+</style>
+<% if Rails.env.production? %>
+  <%= render :partial => "analytics/analytics" %>
+<%end%>
+
+
+</head>
+<body>
+  <%= render :partial => "layouts/fbinit"  %>
+
+    <div id="logo_large_wrap">
+      <div id="logo_large">&trade;</div>
+    </div>
+
+    <header>
+        <div id="inner_header">
+          <div id="logo"></div>
+          <div id="signup_profile">
+                  <%= link_to "Sign up", '#' %> |
+                  <%= link_to "Login", new_user_session_path %>
+          </div>
+        </div>
+      </header>
+     <div class="welcome_page_grid" id="outer_main_wrap">
+        <div id="main_wrap">
+          <% flash.each do |name, msg| %>
+            <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+              <a class="close" data-dismiss="alert">×</a>
+              <%= msg %>
+            </div>
+          <% end %>
+          <div id="inner_wrap">
+            <%= yield %>
+           </div>
+        </div>
+    </div>
+
+
+
+
+ <div class="footer_landingPage">
+    <div class="copyright">2013 &copy; YoungVarsity &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;
+      <span>
+        <%= link_to "Terms of Service", "/terms" %> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;
+        <%= link_to "Privacy", "/privacy" %>
+      </span>
+      <div class="right"><%= link_to "Contact Us", "/contact-us" %></div></div>
+ </div>
+
+</body>
+
+
+</html>

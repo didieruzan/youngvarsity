@@ -1,0 +1,14 @@
+// replace image with cropped image
+random = Math.floor(Math.random() * 200)
+$("#gridphoto_<%=@photo.guid%> .photo_wrap > img").attr("src","<%=@photo.medium%>?"+random);
+
+$("#photo_edit_dialog").dialog('close');
+
+stopWaitAnim();
+
+
+setTimeout(function(){
+  $(".middle_grid").masonry( 'reload' );
+},2000)
+
+

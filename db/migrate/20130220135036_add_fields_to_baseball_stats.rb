@@ -1,0 +1,50 @@
+class AddFieldsToBaseballStats < ActiveRecord::Migration
+  def change
+    add_column :baseball_stats, :title, :string
+    add_column :baseball_stats, :user_id, :integer
+    add_column :baseball_stats, :number_of_games_played, :integer
+    add_column :baseball_stats, :at_bat, :integer
+    add_column :baseball_stats, :hits, :integer
+    add_column :baseball_stats, :batting_average, :integer
+    add_column :baseball_stats, :doubles, :integer
+    add_column :baseball_stats, :triples, :integer
+    add_column :baseball_stats, :home_runs, :integer
+    add_column :baseball_stats, :runs_batted_in, :integer
+    add_column :baseball_stats, :sacrifice_fly, :integer
+    add_column :baseball_stats, :slugging_percentage, :integer
+    add_column :baseball_stats, :on_base_percentage, :integer
+    add_column :baseball_stats, :base_on_balls, :integer
+    add_column :baseball_stats, :hits_by_pitch, :integer
+    add_column :baseball_stats, :reached_on_error, :integer
+    add_column :baseball_stats, :strikeouts, :integer
+    add_column :baseball_stats, :runs, :integer
+    add_column :baseball_stats, :stolen_base, :integer
+    add_column :baseball_stats, :stolen_base_attempts, :integer
+    add_column :baseball_stats, :earned_runs, :integer
+    add_column :baseball_stats, :earned_run_average, :integer
+    add_column :baseball_stats, :runs_against, :integer
+    add_column :baseball_stats, :innings_pitched_decimal, :integer
+    add_column :baseball_stats, :hits_allowed, :integer
+    add_column :baseball_stats, :homeruns_allowed, :integer
+    add_column :baseball_stats, :win, :integer
+    add_column :baseball_stats, :loss, :integer
+    add_column :baseball_stats, :complete_games, :integer
+    add_column :baseball_stats, :games_shutout, :integer
+    add_column :baseball_stats, :base_on_ball, :integer
+    add_column :baseball_stats, :batter_struck_out, :integer
+    add_column :baseball_stats, :batters_faced, :integer
+    add_column :baseball_stats, :fielding, :integer
+    add_column :baseball_stats, :fielding_percentage, :integer
+    add_column :baseball_stats, :put_outs, :integer
+    add_column :baseball_stats, :put_outs_per_game, :integer
+    add_column :baseball_stats, :assists, :integer
+    add_column :baseball_stats, :assists_per_game, :integer
+    add_column :baseball_stats, :errors, :integer
+    add_column :baseball_stats, :errors_per_game, :integer
+    add_column :baseball_stats, :total_chances, :integer
+    add_column :baseball_stats, :total_tackles, :integer
+    add_column :baseball_stats, :solo_tackles, :integer
+    add_column :baseball_stats, :assists_tackles, :integer
+    add_column :baseball_stats, :is_active, :boolean
+  end
+end

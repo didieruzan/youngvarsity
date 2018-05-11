@@ -1,0 +1,53 @@
+<style type="text/css">
+#welcome_dlg
+{
+    z-index: 9999;
+    border: 18px solid rgba(80, 80, 80, 0.3);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+    position: absolute;
+    top: 5px;
+    left: 2px;
+    border-radius: 10px;
+}
+
+#welcome_dlg #welcome_dlg_inner {
+  float: left;
+  width: 900px;
+  height: 675px;
+  background: transparent url('/assets/welcome_screen.jpg') center center no-repeat;
+  position: relative;
+}
+
+#welcome_dlg .top_row, #welcome_dlg .bottom_row  {
+  position: absolute;
+  top: 77px;
+  right: 30px;
+}
+
+#welcome_dlg .bottom_row  {
+  top: auto;
+  bottom: 30px;
+  }
+
+.psi_edit #welcome_dlg {
+  left: 15px;
+  top: 60px;
+  border: 18px solid rgba(80, 80, 80, 0.7);
+}
+
+.welcome_invite #welcome_dlg .top_row
+{
+  top: 55px;
+}
+
+</style>
+<% next_text = "NEXT" %>
+<% next_text = "GET STARTED!" if !invite.nil? && invite === true %>
+
+
+<div id="welcome_dlg">
+  <div id="welcome_dlg_inner">
+    <div class="top_row"><div class="btn right" id="close_welcome_dlg"><%=next_text%></div></div>
+  </div>
+</div>

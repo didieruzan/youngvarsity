@@ -1,0 +1,9 @@
+<% if @error === false %>
+  stopWaitAnim();
+  $("#crop_psi_bg_dialog").fadeOut();
+  $('#landscape-bg-alignment-frame-inner').css('background-image', 'url("<%=userBgThumb %>")');
+  $("#psi_bg_crop_img").attr('src', '<%=current_user.psi_bg_380%>');
+  jcrop_api.setImage('<%=current_user.psi_bg_380%>');
+  jcrop_api.setSelect([0, 0, 380, 380]);
+  $(".apply_filedset.profile_form_fieldset").css("visibility", "visible");
+<% end %>

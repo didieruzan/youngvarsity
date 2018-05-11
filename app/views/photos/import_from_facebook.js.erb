@@ -1,0 +1,20 @@
+<% if !@photo.nil? %>
+  $("#tooltip_content_corner").hide();
+  $("#main_wrap").css('background-image', 'url("/assets/alpha_white.png")');
+
+
+      var rem_btn = '';
+      <%if @photo.user.id == current_user.id %>
+        rem_btn = '<div class="rem_photo"><a href="/photo/delete/<%=@photo.guid%>" data-remote="true"><img src="/assets/blank.png" border="0"/></a></div>';
+      <%end%>
+
+      var pic = '<div class="grid_item" id="gridphoto_<%=@photo.guid%>"><div class="photo_wrap">'+rem_btn+'<%=image_tag @photo.medium, :alt=>"Loading photo..." %></div><div contenteditable spellcheck="false" class="photo_desc" style="display: none;"></div><div class="add_edit_caption ttip" title="Add/edit photo caption"></div><div class="photo_crop ttip" title="Resize and Crop photo"></div><div class="photo_share ttip" title="Share Photo"></div><div class="timestamp"><%= time_ago_in_words(@photo.created_at) %> ago.</div></div>'
+
+      hideWaitOverlay();
+
+      $(".middle_grid").append(pic).imagesLoaded( function(){
+        $(".middle_grid").masonry( 'reload' );
+      });
+
+
+<% end %>

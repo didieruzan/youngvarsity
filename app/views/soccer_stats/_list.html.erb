@@ -1,0 +1,17 @@
+<table border="0" id="stats_list" >
+  <tr>
+    <th class="th_title">Soccer Stats</th>
+    <th width="77">Public</th>
+    <th width="77"></th>
+    <th class="add_stats_th" width="165"><%= link_to '<i class="icon-plus icon-white"></i> Add stats'.html_safe, new_soccer_stat_path, class: "btn btn-warning btn-large" %></th>
+  </tr>
+
+<% @soccer_stats.each do |soccer_stat| %>
+  <tr>
+    <td><%= soccer_stat.title %></td>
+    <td align="center"><%= soccer_stat.is_active ? "Yes" : "No"  %></td>
+    <td align="middle"><%= link_to '<i class="icon-edit icon-white"></i> Edit'.html_safe, edit_soccer_stat_path(soccer_stat), class: "btn btn-info btn-small" %></td>
+    <td width="118" align="middle"><%= link_to '<i class="icon-trash icon-white"></i> Delete'.html_safe, soccer_stat, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-small" %></td>
+  </tr>
+<% end %>
+</table>

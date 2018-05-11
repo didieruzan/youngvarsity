@@ -1,0 +1,44 @@
+if ($('#profile_img_body IMG').attr("src") != "<%=current_user.getAvatar%>")
+{
+	$('#profile_img_body IMG').attr("src", "<%=current_user.getAvatar%>");
+	$('#prof_img_sm IMG').attr("src", "<%=current_user.getAvatarThumb%>");
+}
+
+$('#profile_img_upload_dlg').dialog('close');
+hideUploadProgress();
+<% if current_user.bgimg %>
+	$('#landscape-bg-alignment-frame-inner').css('background-image', 'url("<%=userBgThumb %>")');
+  $("#psi_bg_crop_img").attr('src', '<%=current_user.psi_bg_380%>');
+  $("#crop_bg_image_btn").show();
+  jcrop_api.setImage('<%=current_user.psi_bg_380%>');
+  jcrop_api.setSelect([0, 0, 380, 380]);
+<% end %>
+
+$("#profileBoxWrapper .nameRow").text('<%=current_user.firstname %>'+' '+ '<%=current_user.lastname %>');
+$("#profileBoxWrapper .schoolInfoRow").text('<%=current_user.school_name %>');
+$("#profileBoxWrapper .teamInfoRow").text('<%=current_user.field_pos %>'+ ' @<%=current_user.team_name %>');
+
+
+<% if !!current_user.bio %>
+	$("#profileBoxWrapper .bioRow").html("<%=current_user.bio.html_safe %>");
+<%end%>
+<%
+    box_bg_color = 'transparent'
+    if !current_user.box_bg_color.blank?
+      hex = current_user.box_bg_color
+      col = hex.scan(/../).map {|color| color.to_i(16)}
+      box_bg_color = "rgba(#{col[0]}, #{col[1]}, #{col[2]}, 0.5)"
+    end
+    %>
+	$("#profileBoxWrapper").css('float', '<%=current_user.box_pos %>');
+	$("#profileBoxWrapper #moreOnUser").css('background-color', '#<%=current_user.box_text_col %>');
+	<% if !current_user.box_bg_color.blank? %>
+      $("#profileBoxWrapper #moreOnUser").css('color', '#<%=current_user.box_bg_color %>');
+    <% end %>
+
+    $("#profileBoxWrapper").css('color', '#<%=current_user.box_text_col %>').css('background-color', '<%=box_bg_color%>');
+
+    $('#preloader').hide();
+    $('.saveNotif').fadeIn();
+    $.gritter.add({ title: 'PSI Updated', text: 'Successfully' });
+    $("#user_profile_form .what_next_wrap").fadeIn();

@@ -1,0 +1,46 @@
+<div id="item-view-wrap">
+  <div class="title"><%= @product.title %></div>
+  <div class="btn btn-inverse" style="float: right; margin: 10px 25px 0 0;"><i class="icon-white icon-chevron-left"></i>
+  <a HREF="javascript:history.go(-1)">
+    BACK
+  </a>
+</div>
+  <div class="item-left-wrap">
+    <% if @product.prodimages.any? && @product.prodimages.count > 1 %>
+      <% @product.prodimages.each do |i| %>
+        <div class="itemThumb">
+            <%= image_tag i.tiny %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="item-middle-wrap">
+    <%= image_tag @product.prodimages.first.large if @product.prodimages.any?%>
+  </div>
+  <div class="item-right-wrap">
+    <div class="item-description"><%= @product.description.html_safe %></div>
+    <div class="item-price">$<%= @product.price %></div>
+    <div class="btnred" id="btn_buying_info">
+      <%= link_to "Buying info", @product.url, target: "_blank" %>
+    </div>
+  </div>
+  <div class="item-description-bottom">
+    <%= @product.description_short.html_safe %>
+  </div>
+</div>
+
+<% if !@person.nil? && @person.wishes.count > 1 %>
+  <hr>
+  <div class="other_wishlist_item">
+    <p>
+      <%= "#{@person.firstname} also likes the following" %>
+    </p>
+    <% @person.wishes.each do |prod| %>
+      <% if prod.prodimages.any? && prod.id != @product.id %>
+        <div style="float: left; margin: 0 20px 0 0; cursor: pointer" class="ttip" title="<%=prod.title%><br />Price: $<%=prod.price%>">
+         <%= link_to image_tag(prod.prodimages.first.thumb), "/itemview?id=#{prod.id}&token=#{@token}" %>
+        </div>
+      <% end %>
+    <% end  %>
+  </div>
+<% end %>

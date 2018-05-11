@@ -1,0 +1,28 @@
+<div id="corner-control-wrap">
+  <div id="corner-control" class="ttip" title="Click to add content"></div>
+  <div id="import_photo" class="ttip" title="Add Photos">
+    <% unless params[:action] == "media" || params[:action] == "me" %>
+      <a onClick="waitAnim(); mixpanel.track('Corner control - Edit Media ');" href="/media"><img alt="" src="/assets/blank.png" width="55" height="55"></a>
+    <% end %>
+  </div>
+  <div id="update_wishlist" class="ttip" title="Update your Wishlist items">
+    <a onClick="waitAnim(); mixpanel.track('Corner control - Edit Wishlist ');" href="/prodsgrid"><img alt="" src="/assets/blank.png" width="55" height="55"></a>
+  </div>
+  <div id="update_stats" class="ttip" title="Update your Stats">
+    <a onClick="waitAnim(); mixpanel.track('Corner control - Edit Stats ');" href="/stats"><img alt="" src="/assets/blank.png" width="55" height="55"></a>
+  </div>
+  <div id="manage_teammates" class="ttip" title="Manage Teammates">
+    <a onClick="waitAnim(); mixpanel.track('Corner control - Edit Teammates ');" href="/teammates"><img alt="" src="/assets/blank.png" width="55" height="55"></a>
+  </div>
+  <div id="edit_psi" class="ttip" title="Edit your PSI">
+    <a onClick="waitAnim();  mixpanel.track('Corner control - Edit PSI ');" href="/profile"><img alt="" src="/assets/blank.png" width="55" height="55"></a>
+  </div>
+
+  <!-- <div id="import_video" class="ttip" title="Manage Teammates">
+
+  </div>
+  <div id="shout_message" class="ttip" title="Edit your PSI">
+
+  </div> -->
+
+</div>

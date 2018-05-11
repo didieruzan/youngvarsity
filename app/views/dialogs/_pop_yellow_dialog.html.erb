@@ -1,0 +1,43 @@
+<style type="text/css">
+#pop_yellow_dialog_inner
+{
+    width: 590px;
+    float: left;
+    padding: 20px;
+}
+
+#pop_yellow_dialog_inner div {
+  float: left;
+}
+
+#pop_yellow_dialog_inner div.right {
+  float: right;
+}
+
+
+#pop_yellow_dialog_inner .dlg_header{
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 24px;
+    margin-bottom: 10px;
+    float: left;
+  }
+
+#pop_yellow_dialog_inner .dlg_body{
+    font-size: 18px;
+    line-height: 24px;
+    float: left;
+  }
+
+</style>
+
+<div id="pop_yellow_dialog">
+  <div id="pop_yellow_dialog_inner">
+    <div class="dlg_header"><%=header.html_safe%></div>
+    <div class="dlg_body">
+      <%=body.html_safe%>
+    </div>
+    <div style="margin: 12px 0 0 0"><div style="margin: 3px 5px 0 0"><input id="profile_ttip_hide_next_time" type="checkbox"></div> Don't display this dialog next time I visit this page</div>
+    <div class="right btn btn-small btnblue" id="close_pop_yellow_dialog">OK</div>
+  </div>
+</div>

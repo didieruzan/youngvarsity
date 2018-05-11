@@ -1,0 +1,27 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  hello: "Hello world"
+
+  #Questionnaire for concierge MVP treatment for new users
+  question_age: "Your age"
+  question_sports_list: "Sports activities"
+  question_photo_taker_html: "Who takes photos of your sports events?"
+  question_photo_storage_location_html: "Where are pics/videos of you kept today?"
+  question_share_photos_with_html: "Do you share your sports photos online? if so, with whom?"
+  question_like_zoom_crop_photos_html: "Would you like to be able to zoom and crop your far away photos?"
+  question_like_share_psi_cover_html: "Would you like to share the YV cover page/picture?"
+  question_like_season_album_html: "Would you like to be able to easily create personalized season albums/slide shows of your best pics and season stats?"
+  question_maintain_stats_html: "Do you maintain records of your sports stats?"
+  question_compare_stats_html: "Do you compare your sports stats with other teammates and/or friends?"
+  question_like_compare_stats_pro_html: "Would it be cool if you can compare your stats to that of your favorite pro players?"
+  question_visit_team_website_html: "If the team you belong to has a website, how often do you visit it?"
+
+
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+<ul id="top_bar_tabs">
+
+
+  <li class="ttip" title="Home" onCLick="waitAnim(); mixpanel.track('Top menu - Home'); document.location.href='/view/<%=current_user.guid %>'" id="home_tab"></li>
+  <!-- <li class="ttip" title="View Photos and Videos" onCLick="document.location.href='/media'" id="photo_tab"></li> -->
+  <!-- <li class="ttip" title="Your Locker room" onCLick="document.location.href='/media'" id="locker_tab"></li> -->
+  <!-- <li class="ttip" title="Feature coming soon:<br />Locker room, where atheles can<br />video chat with each other" onCLick="" id="locker_tab"></li> -->
+  <!-- <li class="ttip" title="Feature coming soon:<br />Upcoming Events" onCLick="" id="events_tab"></li> -->
+  <li style="width: auto; margin-right: 36px;" >
+    <%= render :partial => "layouts/nav/top_search" %>
+  </li>
+  <% if !current_user.is_profile_incomplete? %>
+    <li class="ttip" title="Share your Personal Sports Identity (PSI)" id="share_tab"></li>
+  <%end%>
+  <!-- <li class="ttip" title="My Wishlist" onCLick="document.location.href='/prodsgrid'" id="wishlist_tab"></li> -->
+ <!--  <li class="ttip" title="Feature coming soon:<br />My game statistics" onCLick="" id="stats_tab"></li> -->
+  <!-- <li class="ttip" title="Help" id="help_tab"></li> -->
+
+  <!--
+  	<li class="ttip" title="Display help information<br />on the current page" onCLick="alert('Display help information\non the current page');" id="help_tab"></li>
+	-->
+</ul>

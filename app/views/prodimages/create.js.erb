@@ -1,0 +1,6 @@
+var rem_btn = '<a href="/prodimage/delete/<%=@image.id%>" data-remote="true"><img src="/assets/blank.png" border="0"/></a>';
+var img = '<div class="product_image"><%=image_tag @image.medium %><div class="rem_product_image">'+rem_btn+'</div></div>';
+
+$("#images_wrap").append(img);
+
+$("#product_img_upload_dlg").dialog("close")

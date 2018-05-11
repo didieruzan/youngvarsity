@@ -1,0 +1,10 @@
+  var photo_content = '<img src="<%=@photo.large1024 %>" />';
+  $('#photo_dialog .photo_dialog_img_wrap').empty().append(photo_content);
+  $('#photo_dialog .photo_dialog_img_desc').empty();
+  <% if !@photo.description.nil? %>
+    $('#photo_dialog .photo_dialog_img_desc').html("<%=@photo.description %>");
+  <% end %>
+
+
+
+

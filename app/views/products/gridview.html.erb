@@ -1,0 +1,28 @@
+<div class="btn btn-small btn-inverse" style="margin: 10px;"><i class="icon-th icon-white"></i> <%= link_to 'Back', "/controls" %></div>
+<%= render "price_filter_bar" %>
+
+<%#=debug(current_user.wishes) %>
+<%#="filter: #{params[:category]}" if params[:category] %>
+<div id="left_nav">
+  <h3 id="view_wishlist"><%= link_to "View Wishlist", '/wishlist' %>(<span><%=pluralize(current_user.wishes.count, 'item') %></span>)</h3>
+  <h3 style="width: 100%">Filter by:</h3>
+  <%= render "categories_nav", { categories: Category.roots, rootlevel: true }   %>
+</div>
+<div id="prod-grid-wrap">
+  <% @products.each do |product| %>
+      <% if product.prodimages.any? %>
+          <div class="prod-wrap <%='selected' if current_user.wishes.include?(product)%>" id="item_<%=product.id%>">
+            <div class="prod_wishlist_flag"></div>
+              <%= image_tag product.prodimages.first.medium %>
+              <div class="prod-title"><%= truncate(product.title, :length => 45, :omission => '...') %></div>
+              <div class="prod-price">$<%= product.price %></div>
+              <div class="item_moreinfo btn"><%= link_to 'More Info', "/itemview?id=#{product.id}&token=#{@token}" %></div>
+          </div>
+      <% end %>
+  <% end %>
+  <% if @paginate == true %>
+    <div class="pagination_theme">
+      <%= will_paginate @products %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,8 @@
+<div>
+	<div>
+		<%=image_tag @photo.medium %>
+	</div>
+	<div class="timestamp">
+		<%= time_ago_in_words(photo.created_at) %> ago.
+	</div>
+</div>
